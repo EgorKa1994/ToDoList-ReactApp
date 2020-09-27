@@ -1,11 +1,11 @@
 import React from 'react';
-import { useFirebaseTasks } from '../../../firebase/firebase';
+import { useFirebaseTasks } from '../../firebase/firebase';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { TasksInboxList } from './TasksInboxList';
-import { TaskAddForm } from './TaskAddForm';
-import { TaskDetails } from './TaskDetails';
-import { TaskEditForm } from './TaskEditForm';
-import { TasksFocusList } from '../Focus/TasksFocusList';
+import { TasksInboxList } from './Inbox/TasksInboxList';
+import { TaskAddForm } from './Inbox/TaskAddForm';
+import { TaskDetails } from './Inbox/TaskDetails';
+import { TaskEditForm } from './Inbox/TaskEditForm';
+import { TasksFocusList } from './Focus/TasksFocusList';
 
 export const TasksPage = () => {
   const { tasks, isLoading, error, add, edit, remove } = useFirebaseTasks();

@@ -9,7 +9,7 @@ export const TasksFocusList = ({ tasks }) => {
         {tasks.map((task) => {
           if (task.isFocusedOn) {
             return (
-              <li>
+              <li key={task.id}>
                 <h3>{task.title}</h3>
                 <Link to={`/task/${task.id}`}>Подробно</Link>
               </li>

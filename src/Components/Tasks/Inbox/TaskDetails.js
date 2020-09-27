@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { ProjectContext } from '../../AppWrap';
 
 export const TaskDetails = ({ tasks, remove }) => {
   const history = useHistory();
   const choosenTaskId = history.location.pathname.slice(6);
 
   const choosenTask = tasks.filter((task) => task.id == choosenTaskId)[0];
+
+  const projects = useContext(ProjectContext);
 
   if (!choosenTask) {
     return '...loading...';
@@ -27,6 +30,13 @@ export const TaskDetails = ({ tasks, remove }) => {
         )}
       </div>
       <div>{choosenTask.isDone == true ? 'Yes' : 'No'}</div>
+      <div>
+        <span>Project</span>
+        {choosenTask.projectId
+          ? projects.filter((project) => project.id == choosenTask.projectId)[0]
+              .name
+          : 'No project'}
+      </div>
       <button
         onClick={() => {
           history.push(`/task/edit/${choosenTaskId}`);

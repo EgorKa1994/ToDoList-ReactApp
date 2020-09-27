@@ -45,3 +45,28 @@ export const useFirebaseTasks = () => {
 
   return { tasks, isLoading, error, add, edit, remove };
 };
+
+export const useFirebaseProjects = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    firestore
+      .collection('/projects')
+      .get()
+      .then((snapshot) => snapshot.docs.map(toObject))
+      .then((projects) => {
+        setProjects(projects);
+      })
+      .catch((error) => setError(error))
+      .finally(setLoading(false));
+  }, []);
+
+  const add = async (obj) => {
+    const newProject = await firestore.collection('/projects').add(obj);
+    setProjects([...projects, { ...obj, id: newProject.id }]);
+  };
+
+  return { projects, isLoading, error, add };
+};

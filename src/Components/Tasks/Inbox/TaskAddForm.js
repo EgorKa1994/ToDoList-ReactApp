@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { ProjectContext } from '../../AppWrap';
 
 export const TaskAddForm = ({ add }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isFocusedOn, setIsFocusedOn] = useState('false');
   const [isDone, setIsDone] = useState('false');
+  const [projectId, setProjectId] = useState('');
+  const { projects } = useContext(ProjectContext);
+
   const history = useHistory();
 
-  const booleanTransformation = (val) => {
-    return val == 'true' ? true : false;
+  const booleanTransformation = (value) => {
+    return value == 'true' ? true : false;
+  };
+
+  const checkProjectId = (value) => {
+    return value == false ? null : value;
   };
 
   return (
@@ -81,6 +89,21 @@ export const TaskAddForm = ({ add }) => {
           />
         </div>
       </div>
+      <div>
+        <label htmlFor='project'>Choose project</label>
+        <select
+          name='project'
+          value={projectId}
+          onChange={(e) => setProjectId(e.target.value)}
+        >
+          {<option value={''}>No any project</option>}
+          {projects.map((project) => (
+            <option key={project.id} value={project.id}>
+              {project.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <button
         onClick={async () => {
           await add({
@@ -88,6 +111,7 @@ export const TaskAddForm = ({ add }) => {
             description,
             isFocusedOn: booleanTransformation(isFocusedOn),
             isDone: booleanTransformation(isDone),
+            projectId: checkProjectId(projectId),
           });
           history.push('/inbox');
         }}

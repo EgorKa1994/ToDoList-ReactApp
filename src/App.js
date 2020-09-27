@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Menu } from './Menu/Menu';
-import { Header } from './Header/Header';
-import { BrowserRouter } from 'react-router-dom';
-import { TasksPage } from './Components/Tasks/Inbox/TaskPage';
+import { AppWrap } from './Components/AppWrap';
 
 ////////////////////////////////////////projects////
 
@@ -49,11 +46,12 @@ const Projects = () => {
 export const App = () => {
   return (
     <>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Header />
         <Menu />
         <TasksPage />
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <AppWrap />
     </>
   );
 };
