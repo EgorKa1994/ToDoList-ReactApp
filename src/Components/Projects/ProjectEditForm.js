@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toObject, firestore } from '../../firebase/firestore';
+import { ProjectContext } from '../../Components/AppWrap';
 
-export const ProjectAddForm = ({ add }) => {
+export const ProjectEditForm = ({ edit, projectId }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const history = useHistory();
+
+  useEffect(() => {
+    firestore
+      .collection('/projects')
+      .doc(projectId)
+      .get()
+      .then(toObject)
+      .then((project) => {
+        setName(project.name);
+        setDescription(project.description);
+      });
+  }, []);
 
   return (
     <form
@@ -31,14 +45,14 @@ export const ProjectAddForm = ({ add }) => {
       </div>
       <button
         onClick={async () => {
-          await add({
+          await edit(projectId, {
             name,
             description,
           });
           history.push('/projects');
         }}
       >
-        Add
+        Edit
       </button>
       <button
         onClick={() => {

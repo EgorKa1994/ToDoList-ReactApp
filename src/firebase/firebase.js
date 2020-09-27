@@ -68,5 +68,25 @@ export const useFirebaseProjects = () => {
     setProjects([...projects, { ...obj, id: newProject.id }]);
   };
 
-  return { projects, isLoading, error, add };
+  const remove = async (projectId) => {
+    await firestore.collection('/projects').doc(projectId).delete();
+    setProjects(projects.filter((project) => project.id !== projectId));
+  };
+
+  const edit = async (projectId, obj) => {
+    const editProject = await firestore
+      .collection('/projects')
+      .doc(projectId)
+      .update(obj);
+
+    const index = projects.findIndex((project) => project.id == projectId);
+
+    setProjects([
+      ...projects.slice(0, index),
+      { ...obj, id: projectId },
+      ...projects.slice(index + 1),
+    ]);
+  };
+
+  return { projects, isLoading, error, add, remove, edit };
 };

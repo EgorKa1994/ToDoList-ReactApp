@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-export const ProjectsList = ({ projects }) => {
+export const ProjectsList = ({ projects, remove }) => {
+  const history = useHistory();
+
   return (
     <div>
       <h2>Project</h2>
@@ -10,6 +12,14 @@ export const ProjectsList = ({ projects }) => {
         {projects.map((project) => (
           <li key={project.id}>
             <h3>{project.name}</h3>
+            <button
+              onClick={() => {
+                history.push(`/project/edit/${project.id}`);
+              }}
+            >
+              Edit
+            </button>
+            <button onClick={() => remove(project.id)}>Delete</button>
           </li>
         ))}
       </ul>

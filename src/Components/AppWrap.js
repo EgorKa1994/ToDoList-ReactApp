@@ -9,7 +9,14 @@ import { useFirebaseProjects } from '../firebase/firebase';
 export const ProjectContext = React.createContext();
 
 export const AppWrap = () => {
-  const { projects, isLoading, error, add } = useFirebaseProjects();
+  const {
+    projects,
+    isLoading,
+    error,
+    add,
+    remove,
+    edit,
+  } = useFirebaseProjects();
 
   if (isLoading) {
     return '...Loading....';
@@ -23,7 +30,7 @@ export const AppWrap = () => {
     <>
       <BrowserRouter>
         <Header />
-        <ProjectContext.Provider value={{ projects, add }}>
+        <ProjectContext.Provider value={{ projects, add, remove, edit }}>
           <Menu />
           <TasksPage />
           <ProjectsPage />
