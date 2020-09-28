@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ProjectContext } from '../../AppWrap';
 
-export const TaskAddForm = ({ add }) => {
+export const TaskAddForm = ({ addTask }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isFocusedOn, setIsFocusedOn] = useState('false');
@@ -106,7 +106,7 @@ export const TaskAddForm = ({ add }) => {
       </div>
       <button
         onClick={async () => {
-          await add({
+          await addTask({
             title,
             description,
             isFocusedOn: booleanTransformation(isFocusedOn),

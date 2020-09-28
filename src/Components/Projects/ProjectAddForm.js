@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export const ProjectAddForm = ({ add }) => {
+export const ProjectAddForm = ({ addProject }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const history = useHistory();
@@ -31,7 +31,7 @@ export const ProjectAddForm = ({ add }) => {
       </div>
       <button
         onClick={async () => {
-          await add({
+          await addProject({
             name,
             description,
           });

@@ -4,37 +4,53 @@ import { Menu } from '../Menu/Menu';
 import { TasksPage } from './Tasks/TasksPage';
 import { BrowserRouter } from 'react-router-dom';
 import { ProjectsPage } from './Projects/ProjectsPage';
-import { useFirebaseProjects } from '../firebase/firebase';
+import { useFirebaseProjects, useFirebaseTasks } from '../firebase/firebase';
 
 export const ProjectContext = React.createContext();
+export const TaskContext = React.createContext();
 
 export const AppWrap = () => {
   const {
     projects,
-    isLoading,
-    error,
-    add,
-    remove,
-    edit,
+    isLoadingProjects,
+    errorLoadingProjects,
+    addProject,
+    removeProject,
+    editProject,
   } = useFirebaseProjects();
 
-  if (isLoading) {
+  const {
+    tasks,
+    isLoadingTasks,
+    errorLoadingTasks,
+    addTask,
+    editTask,
+    removeTask,
+  } = useFirebaseTasks();
+
+  if (isLoadingProjects || isLoadingTasks) {
     return '...Loading....';
   }
 
-  if (error) {
-    return `There is error ${error}`;
+  if (errorLoadingProjects || errorLoadingTasks) {
+    return `There is error ${
+      errorLoadingProjects ? errorLoadingProjects : ''
+    }, ${errorLoadingTasks ? errorLoadingTasks : ''}`;
   }
 
   return (
     <>
       <BrowserRouter>
         <Header />
-        <ProjectContext.Provider value={{ projects, add, remove, edit }}>
-          <Menu />
-          <TasksPage />
-          <ProjectsPage />
-        </ProjectContext.Provider>
+        <TaskContext.Provider value={{ tasks, addTask, removeTask, editTask }}>
+          <ProjectContext.Provider
+            value={{ projects, addProject, removeProject, editProject }}
+          >
+            <Menu />
+            <TasksPage />
+            <ProjectsPage />
+          </ProjectContext.Provider>
+        </TaskContext.Provider>
       </BrowserRouter>
     </>
   );

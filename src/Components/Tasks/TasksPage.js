@@ -1,22 +1,14 @@
-import React from 'react';
-import { useFirebaseTasks } from '../../firebase/firebase';
+import React, { useContext } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { TasksInboxList } from './Inbox/TasksInboxList';
 import { TaskAddForm } from './Inbox/TaskAddForm';
 import { TaskDetails } from './Inbox/TaskDetails';
 import { TaskEditForm } from './Inbox/TaskEditForm';
 import { TasksFocusList } from './Focus/TasksFocusList';
+import { TaskContext } from '../AppWrap';
 
 export const TasksPage = () => {
-  const { tasks, isLoading, error, add, edit, remove } = useFirebaseTasks();
-
-  if (isLoading) {
-    return '...Loading...';
-  }
-
-  if (error) {
-    return `There is error ${error}`;
-  }
+  const { tasks, addTask, editTask, removeTask } = useContext(TaskContext);
 
   return (
     <Switch>
@@ -27,17 +19,23 @@ export const TasksPage = () => {
         <TasksInboxList tasks={tasks} />
       </Route>
       <Route path='/task/new'>
-        <TaskAddForm add={add} />
+        <TaskAddForm addTask={addTask} />
       </Route>
       <Route exact path='/task/:taskId'>
-        <TaskDetails tasks={tasks} remove={remove} />
+        {({
+          match: {
+            params: { taskId },
+          },
+        }) => (
+          <TaskDetails tasks={tasks} taskId={taskId} removeTask={removeTask} />
+        )}
       </Route>
       <Route path='/task/edit/:taskId'>
         {({
           match: {
             params: { taskId },
           },
-        }) => <TaskEditForm taskId={taskId} edit={edit} />}
+        }) => <TaskEditForm taskId={taskId} editTask={editTask} />}
       </Route>
       <Route exact path='/focus'>
         <TasksFocusList tasks={tasks} />

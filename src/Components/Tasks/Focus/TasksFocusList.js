@@ -7,7 +7,7 @@ export const TasksFocusList = ({ tasks }) => {
       <h2>Focus</h2>
       <ul>
         {tasks.map((task) => {
-          if (task.isFocusedOn) {
+          if (task.isFocusedOn && !task.projectId) {
             return (
               <li key={task.id}>
                 <h3>{task.title}</h3>

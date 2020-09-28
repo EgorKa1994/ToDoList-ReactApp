@@ -2,15 +2,14 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ProjectContext } from '../../AppWrap';
 
-export const TaskDetails = ({ tasks, remove }) => {
+export const TaskDetails = ({ tasks, taskId, removeTask }) => {
   const history = useHistory();
-  const choosenTaskId = history.location.pathname.slice(6);
 
-  const choosenTask = tasks.filter((task) => task.id == choosenTaskId)[0];
+  const choosenTask = tasks.filter((task) => task.id == taskId)[0];
 
   const projects = useContext(ProjectContext);
 
-  if (!choosenTask) {
+  if (!choosenTask || !projects) {
     return '...loading...';
   }
 
@@ -33,20 +32,21 @@ export const TaskDetails = ({ tasks, remove }) => {
       <div>
         <span>Project</span>
         {choosenTask.projectId
-          ? projects.filter((project) => project.id == choosenTask.projectId)[0]
-              .name
+          ? projects.projects.filter(
+              (project) => project.id == choosenTask.projectId
+            )[0].name
           : 'No project'}
       </div>
       <button
         onClick={() => {
-          history.push(`/task/edit/${choosenTaskId}`);
+          history.push(`/task/edit/${taskId}`);
         }}
       >
         Edit
       </button>
       <button
         onClick={async () => {
-          await remove(choosenTaskId);
+          await removeTask(taskId);
           history.push('/inbox');
         }}
       >

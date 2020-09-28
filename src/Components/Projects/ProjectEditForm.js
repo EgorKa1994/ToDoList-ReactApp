@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { toObject, firestore } from '../../firebase/firestore';
 import { ProjectContext } from '../../Components/AppWrap';
 
-export const ProjectEditForm = ({ edit, projectId }) => {
+export const ProjectEditForm = ({ editProject, projectId }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const history = useHistory();
@@ -45,7 +45,7 @@ export const ProjectEditForm = ({ edit, projectId }) => {
       </div>
       <button
         onClick={async () => {
-          await edit(projectId, {
+          await editProject(projectId, {
             name,
             description,
           });

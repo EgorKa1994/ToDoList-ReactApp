@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { toObject, firestore } from '../firebase/firestore';
 
 export const useFirebaseTasks = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoadingTasks, setLoadingTasks] = useState(true);
+  const [errorLoadingTasks, setErrorLoadingTasks] = useState(null);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -14,16 +14,16 @@ export const useFirebaseTasks = () => {
       .then((tasks) => {
         setTasks(tasks);
       })
-      .catch((error) => setError(error))
-      .finally(setLoading(false));
+      .catch((error) => setErrorLoadingTasks(error))
+      .finally(setLoadingTasks(false));
   }, []);
 
-  const add = async (obj) => {
+  const addTask = async (obj) => {
     const newTask = await firestore.collection('/tasks').add(obj);
     setTasks([...tasks, { ...obj, id: newTask.id }]);
   };
 
-  const edit = async (taskId, obj) => {
+  const editTask = async (taskId, obj) => {
     const editTask = await firestore
       .collection('/tasks')
       .doc(taskId)
@@ -38,17 +38,26 @@ export const useFirebaseTasks = () => {
     ]);
   };
 
-  const remove = async (taskId) => {
+  const removeTask = async (taskId) => {
     await firestore.collection('/tasks').doc(taskId).delete();
     setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
-  return { tasks, isLoading, error, add, edit, remove };
+  return {
+    tasks,
+    isLoadingTasks,
+    errorLoadingTasks,
+    addTask,
+    editTask,
+    removeTask,
+  };
 };
 
+////////////////////////////////////////////////
+
 export const useFirebaseProjects = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoadingProjects, setLoadingProjects] = useState(true);
+  const [errorLoadingProjects, setErrorLoadingProjects] = useState(null);
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -59,21 +68,21 @@ export const useFirebaseProjects = () => {
       .then((projects) => {
         setProjects(projects);
       })
-      .catch((error) => setError(error))
-      .finally(setLoading(false));
+      .catch((error) => setErrorLoadingProjects(error))
+      .finally(setLoadingProjects(false));
   }, []);
 
-  const add = async (obj) => {
+  const addProject = async (obj) => {
     const newProject = await firestore.collection('/projects').add(obj);
     setProjects([...projects, { ...obj, id: newProject.id }]);
   };
 
-  const remove = async (projectId) => {
+  const removeProject = async (projectId) => {
     await firestore.collection('/projects').doc(projectId).delete();
     setProjects(projects.filter((project) => project.id !== projectId));
   };
 
-  const edit = async (projectId, obj) => {
+  const editProject = async (projectId, obj) => {
     const editProject = await firestore
       .collection('/projects')
       .doc(projectId)
@@ -88,5 +97,12 @@ export const useFirebaseProjects = () => {
     ]);
   };
 
-  return { projects, isLoading, error, add, remove, edit };
+  return {
+    projects,
+    isLoadingProjects,
+    errorLoadingProjects,
+    addProject,
+    removeProject,
+    editProject,
+  };
 };

@@ -4,9 +4,12 @@ import { ProjectsList } from './ProjectsList';
 import { ProjectAddForm } from './ProjectAddForm';
 import { ProjectContext } from '../../Components/AppWrap';
 import { ProjectEditForm } from './ProjectEditForm';
+import { ProjectDetails } from './ProjectDetails';
 
 export const ProjectsPage = () => {
-  const { projects, add, remove, edit } = useContext(ProjectContext);
+  const { projects, addProject, removeProject, editProject } = useContext(
+    ProjectContext
+  );
 
   return (
     <Switch>
@@ -14,17 +17,30 @@ export const ProjectsPage = () => {
         <Redirect to='/inbox' />
       </Route>
       <Route exact path='/projects'>
-        <ProjectsList projects={projects} remove={remove} />
+        <ProjectsList projects={projects} removeProject={removeProject} />
       </Route>
-      <Route exact path='/project/new'>
-        <ProjectAddForm add={add} />
+      <Route path='/project/new'>
+        <ProjectAddForm addProject={addProject} />
       </Route>
-      <Route path='/project/edit/:projectId'>
+      <Route exact path='/project/edit/:projectId'>
         {({
           match: {
             params: { projectId },
           },
-        }) => <ProjectEditForm projectId={projectId} edit={edit} />}
+        }) => (
+          <ProjectEditForm projectId={projectId} editProject={editProject} />
+        )}
+      </Route>
+      <Route path='/project/:projectId'>
+        {({
+          match: {
+            params: { projectId },
+          },
+        }) => (
+          <ProjectDetails
+            project={projects.filter((project) => project.id == projectId)[0]}
+          />
+        )}
       </Route>
     </Switch>
   );

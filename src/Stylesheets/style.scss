@@ -1,0 +1,20 @@
+.notDone{
+  border: 2px solid black;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+}
+
+.done{
+  border: 2px solid black;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  background-color: green;
+}
+
+.focused{
+  color: yellow;
+}
