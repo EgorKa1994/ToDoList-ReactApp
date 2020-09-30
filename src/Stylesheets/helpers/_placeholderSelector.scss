@@ -1,0 +1,51 @@
+@import './variables';
+
+%background-body {
+  background: $primary-color;
+  background: linear-gradient(
+    183deg,
+    rgba(0, 209, 255, 1) 0%,
+    rgba(80, 223, 255, 1) 30%,
+    rgba(130, 232, 255, 1) 62%,
+    rgba(180, 241, 255, 1) 100%
+  );
+}
+
+%menu-items {
+  content: '';
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  background-size: cover;
+  left: 1px;
+}
+
+%border {
+  border: 2px solid $primary-color;
+}
+
+%transition7 {
+  transition: all 0.7s ease;
+}
+
+%isDoneFocused {
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+}
+
+%borderRadius5 {
+  border-radius: 5%;
+}
+
+%remove-edit-icons {
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+
+

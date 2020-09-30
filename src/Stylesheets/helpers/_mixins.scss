@@ -1,0 +1,14 @@
+@mixin flex($display, $justifyContent, $alignItems) {
+  display: $display;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+}
+
+@mixin font-style($size: 1em, $style: normal, $color: 'white', $weight: 900 ) {
+  font-size: $size;
+  font-style: $style;
+  color: $color;
+  font-weight: $weight;
+}
+
+

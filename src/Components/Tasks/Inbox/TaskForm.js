@@ -4,7 +4,7 @@ import { toObject, firestore } from '../../../firebase/firestore';
 import { ProjectContext } from '../../AppWrap';
 import { setHistoryPush } from '../../../Common/commonFunctions';
 
-export const TaskEditForm = ({ editTask, taskId }) => {
+export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isFocusedOn, setIsFocusedOn] = useState('false');
@@ -21,35 +21,21 @@ export const TaskEditForm = ({ editTask, taskId }) => {
     return value == false ? null : value;
   };
 
-  // const setHistoryPush = () => {
-  //   if (isFocusedOn == 'true') {
-  //     if (projectId) {
-  //       return history.push(`/project/${projectId}`);
-  //     } else {
-  //       return history.push(`/focus`);
-  //     }
-  //   } else {
-  //     if (projectId) {
-  //       return history.push(`/project/${projectId}`);
-  //     } else {
-  //       return history.push(`/inbox`);
-  //     }
-  //   }
-  // };
-
   useEffect(() => {
-    firestore
-      .collection('/tasks')
-      .doc(taskId)
-      .get()
-      .then(toObject)
-      .then((task) => {
-        setTitle(task.title);
-        setDescription(task.description);
-        setIsFocusedOn(String(task.isFocusedOn));
-        setIsDone(String(task.isDone));
-        setProjectId(task.projectId ? task.projectId : '');
-      });
+    if (taskId) {
+      firestore
+        .collection('/tasks')
+        .doc(taskId)
+        .get()
+        .then(toObject)
+        .then((task) => {
+          setTitle(task.title);
+          setDescription(task.description);
+          setIsFocusedOn(String(task.isFocusedOn));
+          setIsDone(String(task.isDone));
+          setProjectId(task.projectId ? task.projectId : '');
+        });
+    }
   }, []);
 
   return (
@@ -58,8 +44,8 @@ export const TaskEditForm = ({ editTask, taskId }) => {
         e.preventDefault();
       }}
     >
-      <div>
-        <label htmlFor='title'></label>
+      <div className='input-group'>
+        <label htmlFor='title'>Title</label>
         <input
           type='text'
           name='title'
@@ -67,17 +53,17 @@ export const TaskEditForm = ({ editTask, taskId }) => {
           onChange={(e) => setTitle(e.target.value)}
         ></input>
       </div>
-      <div>
-        <label htmlFor='description'></label>
+      <div className='input-group'>
+        <label htmlFor='description'>Description</label>
         <textarea
           name='description'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
       </div>
-      <div>
+      <div className='input-group'>
         <div>Would you like to focus on this task?</div>
-        <div>
+        <div className='input-group_choose'>
           <label>Yes</label>
           <input
             type='radio'
@@ -100,9 +86,9 @@ export const TaskEditForm = ({ editTask, taskId }) => {
           />
         </div>
       </div>
-      <div>
+      <div className='input-group'>
         <div>Is the task done?</div>
-        <div>
+        <div className='input-group_choose'>
           <label>Yes</label>
           <input
             type='radio'
@@ -121,7 +107,7 @@ export const TaskEditForm = ({ editTask, taskId }) => {
           />
         </div>
       </div>
-      <div>
+      <div className='input-group'>
         <label htmlFor='project'>Choose project</label>
         <select
           name='project'
@@ -146,29 +132,48 @@ export const TaskEditForm = ({ editTask, taskId }) => {
           })}
         </select>
       </div>
-      <button
-        onClick={async () => {
-          await editTask(taskId, {
-            title,
-            description,
-            isFocusedOn: booleanTransformation(isFocusedOn),
-            isDone: booleanTransformation(isDone),
-            projectId: checkProjectId(projectId),
-          });
+      <div className='control'>
+        <button
+          className='save-close'
+          type='submit'
+          onClick={async () => {
+            if (taskId) {
+              await editTask(taskId, {
+                title,
+                description,
+                isFocusedOn: booleanTransformation(isFocusedOn),
+                isDone: booleanTransformation(isDone),
+                projectId: checkProjectId(projectId),
+              });
 
-          history.push(setHistoryPush(isFocusedOn, projectId));
-        }}
-      >
-        Edit
-      </button>
-      <button
-        onClick={() => {
-          history.push('/inbox');
-          history.push(setHistoryPush(isFocusedOn, projectId));
-        }}
-      >
-        Close
-      </button>
+              history.push(setHistoryPush(isFocusedOn, projectId));
+            } else {
+              await addTask({
+                title,
+                description,
+                isFocusedOn: booleanTransformation(isFocusedOn),
+                isDone: booleanTransformation(isDone),
+                projectId: checkProjectId(projectId),
+              });
+              history.push('/inbox');
+            }
+          }}
+        >
+          Save
+        </button>
+        <button
+          className='save-close'
+          onClick={() => {
+            if (taskId) {
+              history.push(setHistoryPush(isFocusedOn, projectId));
+            } else {
+              history.push('/inbox');
+            }
+          }}
+        >
+          Close
+        </button>
+      </div>
     </form>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toObject, firestore } from '../firebase/firestore';
 
 export const useFirebaseTasks = () => {

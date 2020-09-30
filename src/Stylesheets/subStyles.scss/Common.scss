@@ -1,0 +1,145 @@
+@import '../helpers/variables';
+@import '../helpers//placeholderSelector';
+@import 'helpers/mixins';
+
+.transitionToDetails {
+  background-image: url('../img/icons/arrow.png');
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  @extend %transition7;
+
+  cursor: pointer;
+  margin: 0 5px;
+
+
+  &:hover {
+    transform: scale(1.2, 1.2);
+    @extend %transition7;
+  }
+
+  a {
+    color: #deebfa;
+    mix-blend-mode: multiply;
+    &:visited {
+      color: #deebfa;
+      mix-blend-mode: multiply;
+    }
+  }
+}
+
+.list {
+  padding: 10px 0;
+
+  li {
+    @include flex(flex, flex-start, center);
+    padding: 5px;
+    border-bottom: 2px dashed #05cbf7;
+  }
+
+  li > * {
+    padding: 0 5px;
+  }
+}
+
+.control {
+  @include flex(flex, space-between, flex-start);
+  padding: 20px 0 10px 0;
+}
+
+.details {
+  width: 50%;
+  font-weight: 900;
+
+  h2 {
+    padding: 10px 0;
+  }
+
+  .description {
+    @extend %border;
+    padding: 10px 7px;
+    background-color:$third-color;
+    border-radius: 10px;
+  }
+
+  .details_info-group {
+    @include flex(flex, flex-start, center);
+  }
+
+  .info-group {
+    @include flex(flex, flex-start, center);
+    padding: 10px 0 5px;
+  }
+
+  span {
+    margin-right: 10px;
+  }
+
+  .done-info {
+    background-image: url('../img//icons/done.png');
+    @extend %isDoneFocused ;
+  }
+
+  .not-done-info {
+    border: 2px solid red;
+    border-radius: 50%;
+    @extend %isDoneFocused ;
+  }
+
+  .focused-info {
+    background-image: url('../img/icons/focused.png');
+    @extend %isDoneFocused ;
+  }
+
+  .nonFocused-info {
+    background-image: url('../img/icons/nonFocused.png');
+    @extend %isDoneFocused ;
+  }
+
+  .control {
+    width: 100%;
+  }
+
+  button {
+    background-color: #bbced3;
+    @extend %border ;
+    @include font-style(0.8em, normal, $primary-color, 900);
+    border-radius: 5%;
+    padding: 5px 20px;
+    @extend %transition7;
+    cursor: pointer;
+
+  }
+
+  .editting {
+    background-color: rgba(143, 199, 46, 0.4);
+    @extend %transition7;
+
+    &:hover {
+    background-color: rgba(143, 199, 46, 1);
+    @extend %transition7;
+    }
+  }
+
+  .removing {
+    background-color: rgba(245, 70, 39, 0.4);
+    @extend %transition7;
+
+    &:hover {
+    background-color: rgba(245, 70, 39, 1);
+    @extend %transition7;
+    }
+  }
+
+  .closing {
+    background-color: rgba(245, 231, 39, 0.4);
+    @extend %transition7;
+
+    &:hover {
+    background-color: rgba(245, 231, 39, 1);
+    @extend %transition7;
+    }
+  }
+
+}

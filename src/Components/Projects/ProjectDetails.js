@@ -1,10 +1,12 @@
-import React, { useState, useEffect, Component } from 'react';
+import React from 'react';
 import { useFirebaseTasks } from '../../firebase/firebase';
-import { Link } from 'react-router-dom';
-import '../../Stylesheets/style.scss';
+import { TaskData } from '../../Common/commonFunctions';
+import { useHistory } from 'react-router-dom';
 
-export const ProjectDetails = ({ project }) => {
-  const { tasks, isLoading, error, editTask } = useFirebaseTasks();
+export const ProjectDetails = ({ project, removeProject }) => {
+  const { tasks, isLoading, error, editTask, removeTask } = useFirebaseTasks();
+
+  const history = useHistory();
 
   if (isLoading) {
     return (
@@ -22,75 +24,55 @@ export const ProjectDetails = ({ project }) => {
 
   return (
     <div>
-      <h2>{project ? `${project.name}` : ''}</h2>
-      <div>{project ? `${project.description}` : ''}</div>
-      <ul>
-        {tasks.map((task) => {
-          if (task.projectId == project.id) {
-            return (
-              <ProjectTask key={task.id} task={task} editTask={editTask} />
-            );
-          }
-        })}
-      </ul>
+      <h2>Project details:</h2>
+      <div className='details'>
+        <h2>{project ? `${project.name}` : ''}</h2>
+        <div className='description'>
+          {project
+            ? `${project.description ? project.description : 'No description'}`
+            : ''}
+        </div>
+        <ul>
+          <h3 style={{ paddingTop: 10 }}>Project tasks:</h3>
+          {tasks.map((task) => {
+            if (task.projectId == project.id) {
+              return <TaskData key={task.id} task={task} editTask={editTask} />;
+            }
+          })}
+        </ul>
+        <div className='control'>
+          <button
+            className='editting'
+            onClick={() => {
+              history.push(`/project/edit/${project.id}`);
+            }}
+          >
+            Edit
+          </button>
+          <button
+            className='removing'
+            onClick={async () => {
+              await removeProject(project.id);
+              tasks.forEach((task) => {
+                if (task.projectId == project.id) {
+                  removeTask(task.id);
+                }
+              });
+              history.push(`/projects`);
+            }}
+          >
+            Delete
+          </button>
+          <button
+            className='closing'
+            onClick={() => {
+              history.push('/projects');
+            }}
+          >
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
-
-const ProjectTask = ({ task, editTask }) => {
-  const [isDone, setIsDone] = useState(task.isDone);
-  const [isFocusedOn, setIsFocusedOn] = useState(task.isFocusedOn);
-
-  return (
-    <li>
-      <input
-        type='checkbox'
-        checked={isDone}
-        onChange={async () => {
-          await editTask(task.id, { ...task, isDone: isDone ? false : true });
-          await setIsDone(!isDone);
-        }}
-      ></input>
-      {task.title}
-      <span
-        onClick={async () => {
-          await editTask(task.id, {
-            ...task,
-            isFocusedOn: isFocusedOn ? false : true,
-          });
-          await setIsFocusedOn(!isFocusedOn);
-        }}
-        className={isFocusedOn ? 'focused' : ''}
-      >
-        &#9734;
-      </span>
-      <Link to={`/task/${task.id}`}>подробнее о задаче</Link>
-    </li>
-  );
-};
-
-// class ProjectTask extends Component {
-//   state = {
-//     isDone: this.props.task.isDone,
-//   };
-
-//   render() {
-//     return (
-//       <li>
-//         <input
-//           type='checkbox'
-//           checked={this.state.isDone}
-//           onChange={async () => {
-//             await this.setState({ isDone: !this.state.isDone });
-//             await this.props.editTask(this.props.task.id, {
-//               ...this.props.task,
-//               isDone: this.state.isDone,
-//             });
-//           }}
-//         ></input>
-//         {this.props.task.title}
-//         <Link to={`/task/${this.props.task.id}`}>подробнее о задаче</Link>
-//       </li>
-//     );
-//   }
-// }

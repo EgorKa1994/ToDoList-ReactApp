@@ -1,0 +1,30 @@
+@import '../helpers/variables';
+@import '../helpers//placeholderSelector';
+@import 'helpers/mixins';
+
+.mainPage {
+  @include flex(flex, flex-start, stretch);
+
+  & > div:last-child, form {
+    border-top: $border-param;
+    width: 80%;
+    padding: 10px;
+  }
+
+  .addition {
+    padding: 5px 20px 5px 25px;
+    display: inline-block;
+    border-radius: 10%;
+    background-image: url('../img/icons/plus.png');
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+    @extend %transition7;
+
+    &:hover {
+      color: $primary-color;
+      background-color: $secondary-color;
+      @extend %transition7;
+    }
+  }
+}

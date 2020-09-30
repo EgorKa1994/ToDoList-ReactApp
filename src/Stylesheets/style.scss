@@ -1,20 +1,13 @@
-.notDone{
-  border: 2px solid black;
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  display: inline-block;
-}
+@import 'helpers/reset';
+@import 'helpers/variables';
+@import 'helpers/placeholderSelector';
 
-.done{
-  border: 2px solid black;
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  display: inline-block;
-  background-color: green;
-}
+@import './subStyles.scss/App.scss';
+@import './subStyles.scss/Menu.scss';
+@import './subStyles.scss/Main.scss';
+@import './subStyles.scss/Common.scss';
+@import './subStyles.scss/Form.scss';
+@import './subStyles.scss/ProjectList.scss';
 
-.focused{
-  color: yellow;
-}
+
+

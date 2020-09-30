@@ -1,0 +1,64 @@
+@import '../helpers/variables';
+@import '../helpers//placeholderSelector';
+
+
+.menu {
+  width: 20%;
+  border-top: $border-param;
+  border-right: $border-param;
+  position: relative;
+}
+
+.menu > div {
+  padding: 5px 0 5px 30px;
+  font-weight: 900;
+  &:hover {
+    background-color: $primary-color;
+    cursor: pointer;
+  }
+}
+
+.menu_item__inbox:before {
+  @extend %menu-items;
+  background-image: url('../img/icons/list.png');
+}
+
+.menu_item__focus:before {
+  @extend %menu-items;
+  background-image: url('../img/icons/focus.png');
+}
+
+.menu_item__project:before {
+  @extend %menu-items;
+  background-image: url('../img/icons/project.png');
+}
+
+.menu_item {
+  border-bottom: $border-param;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  ul {
+    padding-left: 18px;
+    @include font-style(0.8em, normal, $secondary-color);
+    position: relative;
+
+    li {
+      padding: 2px 0;
+    }
+
+    li:before {
+      background: url('../img/icons//puzzle.png') no-repeat;
+      content: '';
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      background-size: contain;
+      display: block;
+      margin-top: 3px;
+      left: 1px;
+    }
+  }
+}

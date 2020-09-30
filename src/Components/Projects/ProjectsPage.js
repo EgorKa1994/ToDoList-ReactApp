@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { ProjectsList } from './ProjectsList';
-import { ProjectAddForm } from './ProjectAddForm';
+import { ProjectsListWrap } from './ProjectsListWrap';
 import { ProjectContext } from '../../Components/AppWrap';
-import { ProjectEditForm } from './ProjectEditForm';
+import { ProjectForm } from './ProjectForm';
 import { ProjectDetails } from './ProjectDetails';
 
 export const ProjectsPage = () => {
@@ -17,19 +16,17 @@ export const ProjectsPage = () => {
         <Redirect to='/inbox' />
       </Route>
       <Route exact path='/projects'>
-        <ProjectsList projects={projects} removeProject={removeProject} />
+        <ProjectsListWrap projects={projects} removeProject={removeProject} />
       </Route>
       <Route path='/project/new'>
-        <ProjectAddForm addProject={addProject} />
+        <ProjectForm addProject={addProject} />
       </Route>
       <Route exact path='/project/edit/:projectId'>
         {({
           match: {
             params: { projectId },
           },
-        }) => (
-          <ProjectEditForm projectId={projectId} editProject={editProject} />
-        )}
+        }) => <ProjectForm projectId={projectId} editProject={editProject} />}
       </Route>
       <Route path='/project/:projectId'>
         {({
@@ -39,6 +36,7 @@ export const ProjectsPage = () => {
         }) => (
           <ProjectDetails
             project={projects.filter((project) => project.id == projectId)[0]}
+            removeProject={removeProject}
           />
         )}
       </Route>

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Header } from '../Header/Header';
-import { Menu } from '../Menu/Menu';
-import { TasksPage } from './Tasks/TasksPage';
 import { BrowserRouter } from 'react-router-dom';
-import { ProjectsPage } from './Projects/ProjectsPage';
 import { useFirebaseProjects, useFirebaseTasks } from '../firebase/firebase';
+import { MainPage } from '../MainPage/MainPage';
+import '../Stylesheets/style.scss';
 
 export const ProjectContext = React.createContext();
 export const TaskContext = React.createContext();
@@ -40,18 +39,20 @@ export const AppWrap = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        <TaskContext.Provider value={{ tasks, addTask, removeTask, editTask }}>
-          <ProjectContext.Provider
-            value={{ projects, addProject, removeProject, editProject }}
+      <div id='app'>
+        <BrowserRouter>
+          <Header />
+          <TaskContext.Provider
+            value={{ tasks, addTask, removeTask, editTask }}
           >
-            <Menu />
-            <TasksPage />
-            <ProjectsPage />
-          </ProjectContext.Provider>
-        </TaskContext.Provider>
-      </BrowserRouter>
+            <ProjectContext.Provider
+              value={{ projects, addProject, removeProject, editProject }}
+            >
+              <MainPage className={'mainPage'} />
+            </ProjectContext.Provider>
+          </TaskContext.Provider>
+        </BrowserRouter>
+      </div>
     </>
   );
 };

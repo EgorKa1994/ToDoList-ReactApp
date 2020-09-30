@@ -1,23 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../../../Stylesheets/style.scss';
+import { TaskList } from '../../../Common/commonFunctions';
 
-export const TasksInboxList = ({ tasks }) => {
+export const TasksInboxList = ({ tasks, editTask }) => {
   return (
     <div>
       <h2>Inbox</h2>
-      <Link to='/task/new'>Add task</Link>
-      <ul>
-        {tasks.map((task) => {
-          if (!task.projectId && !task.isFocusedOn) {
-            return (
-              <li key={task.id}>
-                <h3>{task.title}</h3>
-                <Link to={`/task/${task.id}`}>Подробно</Link>
-              </li>
-            );
-          }
-        })}
-      </ul>
+      <Link to='/task/new'>
+        <div className='addition'>Add task</div>
+      </Link>
+      <TaskList tasks={tasks} editTask={editTask} type='inbox' />
     </div>
   );
 };

@@ -1,0 +1,37 @@
+.edit {
+  background-image: url('../img/icons/edit.png');
+  @extend %transition7;
+  @extend %remove-edit-icons;
+
+  &:hover {
+    transform: scale(1.2, 1.2);
+    @extend %transition7;
+  }
+}
+
+.remove {
+  background-image: url('../img/icons/remove.png');
+  @extend %transition7;
+  @extend %remove-edit-icons;
+
+
+  &:hover {
+    transform: scale(1.2, 1.2);
+    @extend %transition7;
+  }
+}
+
+.task-data {
+  @include flex(flex, flex-start, center);
+  flex-wrap: wrap;
+  margin: 0 -10px;
+
+  & > *{
+    margin: 0 10px;
+    cursor: pointer;
+  }
+}
+
+.focused {
+  color: yellow;
+}
