@@ -1,7 +1,7 @@
 import React from 'react';
-import { ProjectsPage } from '../Components/Projects/ProjectsPage';
-import { Menu } from '../Menu/Menu';
-import { TasksPage } from '../Components/Tasks/TasksPage';
+import { ProjectsPage } from '../MainPage/Projects/ProjectsPage';
+import { Menu } from '../MainPage/Menu.js/Menu';
+import { TasksPage } from '../MainPage/Tasks/TasksPage';
 
 export const MainPage = ({ className }) => {
   return (

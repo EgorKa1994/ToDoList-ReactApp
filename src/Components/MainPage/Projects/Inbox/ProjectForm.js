@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { toObject, firestore } from '../../firebase/firestore';
+import { toObject, firestore } from '../../../../firebase/firestore';
 
 export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const [name, setName] = useState('');

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Header } from '../Header/Header';
+import { Header } from './Header/Header';
 import { BrowserRouter } from 'react-router-dom';
 import { useFirebaseProjects, useFirebaseTasks } from '../firebase/firebase';
-import { MainPage } from '../MainPage/MainPage';
+import { MainPage } from './MainPage/MainPage';
 import '../Stylesheets/style.scss';
 
 export const ProjectContext = React.createContext();

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ProjectContext } from '../Components/AppWrap';
+import { ProjectContext } from '../../AppWrap';
 import clsx from 'clsx';
 
 const itemKind = {

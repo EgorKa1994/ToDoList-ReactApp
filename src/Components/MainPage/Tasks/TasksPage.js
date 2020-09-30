@@ -4,7 +4,7 @@ import { TasksInboxList } from './Inbox/TasksInboxList';
 import { TaskDetails } from './Inbox/TaskDetails';
 import { TaskForm } from './Inbox/TaskForm';
 import { TasksFocusList } from './Focus/TasksFocusList';
-import { TaskContext } from '../AppWrap';
+import { TaskContext } from '../../AppWrap';
 
 export const TasksPage = () => {
   const { tasks, addTask, editTask, removeTask } = useContext(TaskContext);

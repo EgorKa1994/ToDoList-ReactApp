@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { toObject, firestore } from '../../../firebase/firestore';
-import { ProjectContext } from '../../AppWrap';
-import { setHistoryPush } from '../../../Common/commonFunctions';
+import { toObject, firestore } from '../../../../firebase/firestore';
+import { ProjectContext } from '../../../AppWrap';
+import { setHistoryPush } from '../../../Common/Functions/comFunction';
 
 export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [title, setTitle] = useState('');

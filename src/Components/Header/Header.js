@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 export const Header = () => {
   return (
     <header>
+      <h1>Your personal ToDoList</h1>
       <WeatherLocation />
     </header>
   );
@@ -21,7 +22,6 @@ const WeatherLocation = () => {
 
   return (
     <div>
-      <h1>Your personal ToDoList</h1>
       <div className='header-flex'>
         <div>
           {`${weather.name}, ${weather.sys.country}   `}

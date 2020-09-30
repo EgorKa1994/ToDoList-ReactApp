@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { ProjectsListWrap } from './ProjectsListWrap';
-import { ProjectContext } from '../../Components/AppWrap';
-import { ProjectForm } from './ProjectForm';
-import { ProjectDetails } from './ProjectDetails';
+import { ProjectsListWrap } from './Inbox/ProjectsListWrap';
+import { ProjectContext } from '../../../Components/AppWrap';
+import { ProjectForm } from './Inbox/ProjectForm';
+import { ProjectDetails } from './Inbox/ProjectDetails';
 
 export const ProjectsPage = () => {
   const { projects, addProject, removeProject, editProject } = useContext(

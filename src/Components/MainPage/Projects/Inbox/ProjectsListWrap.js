@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { TaskContext } from '../AppWrap';
-import '../../Stylesheets/style.scss';
-import { ProjectList } from '../../Common/commonFunctions';
+import { TaskContext } from '../../../AppWrap';
+import { ProjectList } from './ProjectList';
 
 export const ProjectsListWrap = ({ projects, removeProject }) => {
   const history = useHistory();

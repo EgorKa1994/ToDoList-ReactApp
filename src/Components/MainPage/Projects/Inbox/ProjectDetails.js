@@ -1,7 +1,7 @@
 import React from 'react';
-import { useFirebaseTasks } from '../../firebase/firebase';
-import { TaskData } from '../../Common/commonFunctions';
+import { useFirebaseTasks } from '../../../../firebase/firebase';
 import { useHistory } from 'react-router-dom';
+import { TaskData } from '../../../Common/Components/comComponent';
 
 export const ProjectDetails = ({ project, removeProject }) => {
   const { tasks, isLoading, error, editTask, removeTask } = useFirebaseTasks();

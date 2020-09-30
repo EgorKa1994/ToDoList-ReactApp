@@ -1,5 +1,5 @@
 import React from 'react';
-import { TaskList } from '../../../Common/commonFunctions';
+import { TaskList } from '../../../Common/Components/comComponent';
 
 export const TasksFocusList = ({ tasks }) => {
   return (

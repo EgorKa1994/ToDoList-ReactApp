@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../../../Stylesheets/style.scss';
-import { TaskList } from '../../../Common/commonFunctions';
+import { TaskList } from '../../../Common/Components/comComponent';
 
 export const TasksInboxList = ({ tasks, editTask }) => {
   return (
