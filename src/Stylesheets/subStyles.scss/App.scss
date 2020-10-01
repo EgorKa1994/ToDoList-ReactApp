@@ -29,10 +29,19 @@ header {
   margin: 0 auto;
 
   .header-flex {
+    @include flex(flex, space-between, center);
+  }
+
+  .weather-flex {
     @include flex(flex, center, center);
-    max-height: 50px;
+    max-height: 100px;
+
+    & > div {
+      margin: 0 15px;
+    }
   }
 }
+
 
 h1 {
   color: $secondary-color;
@@ -51,7 +60,9 @@ h2 {
 #app {
   width: 70%;
   margin: 3% auto;
-  background-color: rgba(222, 235, 250, 1);
+  border-radius: 10px;
+
+  background-color: $fifth-color;
   -webkit-box-shadow: 0px 0px 25px 14px rgba(222, 235, 250, 0.95);
   -moz-box-shadow: 0px 0px 25px 14px rgba(222, 235, 250, 0.95);
   box-shadow: 0px 0px 25px 14px rgba(222, 235, 250, 0.95);

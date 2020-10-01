@@ -1,0 +1,79 @@
+@import '../helpers/variables';
+@import '../helpers/placeholderSelector';
+
+
+
+button {
+  padding: 5px 20px;
+  border-radius: 10px;
+  margin: 0 10%;
+  @extend %transition7;
+  @include font-style(0.8em, normal, $secondary-color, 900);
+  @extend %border;
+  cursor: pointer;
+
+  &:hover {
+    @extend %transition7;
+    background-color: $secondary-color;
+  }
+}
+
+.save-close {
+  background-color: $fourth-color;
+
+  &:hover {
+    box-shadow: 0 0 10px 0 $primary-color inset, 0 0 10px 4px $primary-color;
+    color: $primary-color;
+  }
+}
+
+.editting {
+  background-color: $edit-color;
+  margin: 0;
+  border: 2px solid $edit-color;
+
+  &:hover {
+    color: $edit-color;
+    box-shadow: 0 0 10px 0 $edit-color inset,
+      0 0 10px 4px $edit-color;
+  }
+}
+
+.removing {
+  background-color: $delete-color;
+  margin: 0;
+  border: 2px solid $delete-color;
+
+  &:hover {
+    color: $delete-color;
+    box-shadow: 0 0 10px 0 $delete-color inset, 0 0 10px 4px $delete-color;
+  }
+}
+
+.closing {
+  background-color: $close-color;
+  margin: 0;
+  border: 2px solid $close-color;
+
+  &:hover {
+    color: $close-color;
+    box-shadow: 0 0 10px 0 $close-color inset, 0 0 10px 4px $close-color;
+  }
+}
+
+.addition {
+  background-image: url('../img/icons/plus.png');
+  background-size: 15px 15px;
+  background-repeat: no-repeat;
+  background-position: 5% 50%;
+  margin: 0;
+  padding-left: 25px;
+  background-color: $fourth-color;
+
+
+  &:hover {
+    box-shadow: 0 0 10px 0 $primary-color inset, 0 0 10px 4px $primary-color;
+    color: $primary-color;
+  }
+}
+

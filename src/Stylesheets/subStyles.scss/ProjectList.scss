@@ -24,14 +24,32 @@
 .task-data {
   @include flex(flex, flex-start, center);
   flex-wrap: wrap;
-  margin: 0 -10px;
 
-  & > *{
-    margin: 0 10px;
+  & > * {
     cursor: pointer;
+    padding: 0 5px;
+  }
+
+  label {
+    padding: 0;
   }
 }
 
 .focused {
   color: yellow;
+  @extend %transition7;
+
+  &:hover {
+    color: $primary-color;
+    @extend %transition7;
+  }
 }
+
+.nonFocused {
+  @extend %transition7;
+  &:hover {
+    color: yellow;
+    @extend %transition7;
+  }
+}
+

@@ -37,6 +37,8 @@ export const ProjectsPage = () => {
           <ProjectDetails
             project={projects.filter((project) => project.id == projectId)[0]}
             removeProject={removeProject}
+            projectId={projectId}
+            projects={projects}
           />
         )}
       </Route>

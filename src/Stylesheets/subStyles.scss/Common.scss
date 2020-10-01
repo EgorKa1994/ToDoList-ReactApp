@@ -100,46 +100,4 @@
   .control {
     width: 100%;
   }
-
-  button {
-    background-color: #bbced3;
-    @extend %border ;
-    @include font-style(0.8em, normal, $primary-color, 900);
-    border-radius: 5%;
-    padding: 5px 20px;
-    @extend %transition7;
-    cursor: pointer;
-
-  }
-
-  .editting {
-    background-color: rgba(143, 199, 46, 0.4);
-    @extend %transition7;
-
-    &:hover {
-    background-color: rgba(143, 199, 46, 1);
-    @extend %transition7;
-    }
-  }
-
-  .removing {
-    background-color: rgba(245, 70, 39, 0.4);
-    @extend %transition7;
-
-    &:hover {
-    background-color: rgba(245, 70, 39, 1);
-    @extend %transition7;
-    }
-  }
-
-  .closing {
-    background-color: rgba(245, 231, 39, 0.4);
-    @extend %transition7;
-
-    &:hover {
-    background-color: rgba(245, 231, 39, 1);
-    @extend %transition7;
-    }
-  }
-
 }

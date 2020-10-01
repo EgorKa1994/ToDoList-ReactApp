@@ -8,13 +8,17 @@ export const TaskData = ({ task, editTask }) => {
   return (
     <li className='task-data'>
       <input
+        className='custom-checkbox'
         type='checkbox'
         checked={isDone}
+        id='checkBox'
+        name='checkBox'
         onChange={async () => {
           await setIsDone(!isDone);
           await editTask(task.id, { ...task, isDone: isDone ? false : true });
         }}
       ></input>
+      <label htmlFor='checkBox'></label>
       <div
         style={{ fontSize: 30 }}
         onClick={async () => {
@@ -24,7 +28,7 @@ export const TaskData = ({ task, editTask }) => {
             isFocusedOn: isFocusedOn ? false : true,
           });
         }}
-        className={isFocusedOn ? 'focused' : ''}
+        className={isFocusedOn ? 'focused' : 'nonFocused'}
       >
         &#9734;
       </div>
@@ -65,4 +69,16 @@ export const TaskList = ({ tasks, editTask, type }) => {
       </ul>
     );
   }
+};
+
+export const PreLoader = () => {
+  return (
+    <div className='loader'>
+      <div className='item-1'></div>
+      <div className='item-2'></div>
+      <div className='item-3'></div>
+      <div className='item-4'></div>
+      <div className='item-5'></div>
+    </div>
+  );
 };

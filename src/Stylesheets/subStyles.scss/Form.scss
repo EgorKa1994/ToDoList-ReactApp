@@ -34,21 +34,5 @@ form {
   .control {
     width: 50%;
 
-    .save-close {
-      background-color: $fourth-color;
-      @extend %border;
-      @extend %borderRadius5;
-      @include font-style(0.7em, normal, $secondary-color, 900);
-      margin: 0 10%;
-      padding: 5px 20px;
-      @extend %transition7;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $secondary-color;
-        color: $fourth-color;
-        @extend %transition7;
-      }
-    }
   }
 }

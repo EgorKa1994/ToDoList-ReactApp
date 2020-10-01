@@ -3,5 +3,11 @@ $primary-color: #05cbf7;
 $secondary-color: white;
 $third-color: #ccd8db;
 $fourth-color:  #bbced3;
+$fifth-color: rgba(222, 235, 250, 1);
 
 $border-param: 2px solid $primary-color;
+
+//для кнопок
+$edit-color: rgba(143, 199, 46, 0.5);
+$delete-color: rgba(245, 70, 39, 0.5);
+$close-color: rgba(245, 163, 39, 0.5);

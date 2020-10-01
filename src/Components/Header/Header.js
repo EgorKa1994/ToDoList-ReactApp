@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { PreLoader } from '../Common/Components/comComponent';
 
 export const Header = () => {
   return (
@@ -13,7 +14,7 @@ const WeatherLocation = () => {
   const { weather, isLoading, error } = usePositionAndWeather();
 
   if (isLoading) {
-    return '...loading...';
+    return <PreLoader />;
   }
 
   if (error) {
@@ -21,12 +22,16 @@ const WeatherLocation = () => {
   }
 
   return (
-    <div>
-      <div className='header-flex'>
+    <div className='header-flex'>
+      <div className='weather-flex'>
         <div>
-          {`${weather.name}, ${weather.sys.country}   `}
-          {`${Math.round(weather.main.temp)}`}&#176;
-          {`C, ${weather.wind.speed} m/s`}
+          <div>{`${weather.name}, ${weather.sys.country}   `}</div>
+          <div>
+            {`${Math.round(weather.main.temp)}`}&#176;
+            {`C, ${
+              weather.wind.speed
+            } m/s, ${weather.weather[0].main.toLowerCase()}`}
+          </div>
         </div>
         <div>
           <img
@@ -34,6 +39,7 @@ const WeatherLocation = () => {
           />
         </div>
       </div>
+      <div></div>
     </div>
   );
 };

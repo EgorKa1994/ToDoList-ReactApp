@@ -70,7 +70,11 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
           <button
             className='closing'
             onClick={() => {
-              history.push('/inbox');
+              if (choosenTask.isFocusedOn) {
+                history.push('/focus');
+              } else {
+                history.push('/inbox');
+              }
             }}
           >
             Close

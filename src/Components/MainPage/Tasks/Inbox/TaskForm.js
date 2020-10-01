@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { toObject, firestore } from '../../../../firebase/firestore';
 import { ProjectContext } from '../../../AppWrap';
 import { setHistoryPush } from '../../../Common/Functions/comFunction';
+import { PreLoader } from '../../../Common/Components/comComponent';
 
 export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [title, setTitle] = useState('');
@@ -10,6 +11,8 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [isFocusedOn, setIsFocusedOn] = useState('false');
   const [isDone, setIsDone] = useState('false');
   const [projectId, setProjectId] = useState('');
+  const [errorTask, setErrorTask] = useState(null);
+  const [isLoadingTask, setIsLoadingTask] = useState(true);
   const history = useHistory();
   const { projects } = useContext(ProjectContext);
 
@@ -34,9 +37,21 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
           setIsFocusedOn(String(task.isFocusedOn));
           setIsDone(String(task.isDone));
           setProjectId(task.projectId ? task.projectId : '');
-        });
+        })
+        .catch((errorTask) => setErrorTask(errorTask))
+        .finally(setIsLoadingTask(false));
+    } else {
+      setIsLoadingTask(false);
     }
   }, []);
+
+  if (isLoadingTask) {
+    return <PreLoader />;
+  }
+
+  if (errorTask) {
+    return `There is error: ${errorTask}`;
+  }
 
   return (
     <form
@@ -145,7 +160,6 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
                 isDone: booleanTransformation(isDone),
                 projectId: checkProjectId(projectId),
               });
-
               history.push(setHistoryPush(isFocusedOn, projectId));
             } else {
               await addTask({
@@ -155,7 +169,15 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
                 isDone: booleanTransformation(isDone),
                 projectId: checkProjectId(projectId),
               });
-              history.push('/inbox');
+              if (projectId) {
+                history.push('/projects');
+              } else {
+                if (isFocusedOn == 'true') {
+                  history.push('/focus');
+                } else {
+                  history.push('/inbox');
+                }
+              }
             }
           }}
         >

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toObject, firestore } from '../../../../firebase/firestore';
+import { PreLoader } from '../../../Common/Components/comComponent';
 
 export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [errorProj, setErrorProj] = useState(null);
+  const [isLoadingProj, setIsLoadingProj] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
@@ -17,9 +20,21 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
         .then((project) => {
           setName(project.name);
           setDescription(project.description);
-        });
+        })
+        .catch((errorProj) => setErrorProj(errorProj))
+        .finally(setIsLoadingProj(false));
+    } else {
+      setIsLoadingProj(false);
     }
-  }, [projectId]);
+  }, []);
+
+  if (isLoadingProj) {
+    return <PreLoader />;
+  }
+
+  if (errorProj) {
+    return `There is error: ${errorProj}`;
+  }
 
   return (
     <form
