@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { TaskContext } from '../../../AppWrap';
+import { TaskContext } from '../../../../Components/Common/Context/Context';
 import { ProjectList } from './ProjectList';
 
 export const ProjectsListWrap = ({ projects, removeProject }) => {
@@ -9,7 +9,7 @@ export const ProjectsListWrap = ({ projects, removeProject }) => {
 
   return (
     <div>
-      <h2>Project</h2>
+      <h2>Projects</h2>
       <Link to='/project/new'>
         <button className='addition'>Add project</button>
       </Link>

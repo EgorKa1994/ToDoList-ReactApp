@@ -1,0 +1,73 @@
+@import 'helpers/variables';
+@import 'helpers/placeholderSelector';
+@import 'helpers/mixins';
+
+.login {
+  width: 50%;
+
+  & > div {
+    @include flex(flex, flex-end, center);
+  }
+
+  .login_info {
+
+    &>div {
+      margin: 0 15px;
+      height: 25px;
+    }
+  }
+}
+
+.login_control__btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px;
+
+  span {
+    display: block;
+    overflow: hidden;
+    max-width: 0;
+    opacity: 0;
+    @include font-style(0.6em, normal, $secondary-color, 900);
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    line-height: 1;
+    transition: .4s ease;
+  }
+}
+
+.login_control__btn:after {
+  content: '';
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+  speak: none;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.login_control__btn:hover span {
+  max-width: 150px;
+  opacity: 1;
+  margin-right: 6px;
+}
+
+.in:after {
+  background-image: url('../img/icons/Login/singIn.png');
+}
+
+.out:after {
+  background-image: url('../img/icons/Login/signOut.png');
+}
+
+.info:after {
+  background-image: url('../img/icons/Login/user.png');
+}
+
+.reg:after {
+  background-image: url('../img/icons/Login/Registration.png');
+}

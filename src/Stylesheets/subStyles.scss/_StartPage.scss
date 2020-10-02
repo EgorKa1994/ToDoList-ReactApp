@@ -1,0 +1,21 @@
+@import '../helpers/variables';
+@import '../helpers/placeholderSelector';
+@import '../helpers/mixins';
+
+.authorization {
+
+  h2 {
+    text-align: center;
+    padding: 30px;
+  }
+
+  div {
+    width: 150px;
+    height: 150px;
+    background-image: url('../img//icons//businessregistration_signpen_negocio_inscripcio_2358.png');
+    background-position: cover;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+  }
+
+}

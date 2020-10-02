@@ -1,12 +1,19 @@
 import React from 'react';
 import { Header } from './Header/Header';
 import { BrowserRouter } from 'react-router-dom';
-import { useFirebaseProjects, useFirebaseTasks } from '../firebase/firebase';
+import {
+  useFirebaseProjects,
+  useFirebaseTasks,
+  useFirebaseUser,
+} from '../firebase/firebase';
 import { MainPage } from './MainPage/MainPage';
 import '../Stylesheets/style.scss';
-
-export const ProjectContext = React.createContext();
-export const TaskContext = React.createContext();
+import {
+  ProjectProvider,
+  TaskProvider,
+  UserProvider,
+} from './Common/Context/Context';
+import { PreLoader } from '../Components/Common/Components/comComponent';
 
 export const AppWrap = () => {
   const {
@@ -27,30 +34,46 @@ export const AppWrap = () => {
     removeTask,
   } = useFirebaseTasks();
 
-  if (isLoadingProjects || isLoadingTasks) {
-    return '...Loading....';
+  const {
+    user,
+    isLoadingUser,
+    errorLoadingUser,
+    register,
+    logIn,
+    logOut,
+    update,
+  } = useFirebaseUser();
+
+  console.log(user);
+
+  if (isLoadingProjects || isLoadingTasks || isLoadingUser) {
+    return <PreLoader />;
   }
 
-  if (errorLoadingProjects || errorLoadingTasks) {
-    return `There is error ${
-      errorLoadingProjects ? errorLoadingProjects : ''
-    }, ${errorLoadingTasks ? errorLoadingTasks : ''}`;
+  if (errorLoadingProjects || errorLoadingTasks || errorLoadingUser) {
+    if (errorLoadingProjects) {
+      return `There is error ${errorLoadingProjects}`;
+    } else if (errorLoadingTasks) {
+      return `There is error ${errorLoadingTasks}`;
+    } else if (errorLoadingUser) {
+      return `There is error ${errorLoadingUser}`;
+    }
   }
 
   return (
     <>
       <div id='app'>
         <BrowserRouter>
-          <Header />
-          <TaskContext.Provider
-            value={{ tasks, addTask, removeTask, editTask }}
-          >
-            <ProjectContext.Provider
-              value={{ projects, addProject, removeProject, editProject }}
-            >
-              <MainPage className={'mainPage'} />
-            </ProjectContext.Provider>
-          </TaskContext.Provider>
+          <UserProvider value={{ user, register, logIn, logOut, update }}>
+            <Header />
+            <TaskProvider value={{ tasks, addTask, removeTask, editTask }}>
+              <ProjectProvider
+                value={{ projects, addProject, removeProject, editProject }}
+              >
+                <MainPage className={'mainPage'} />
+              </ProjectProvider>
+            </TaskProvider>
+          </UserProvider>
         </BrowserRouter>
       </div>
     </>

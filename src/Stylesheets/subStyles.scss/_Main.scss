@@ -4,10 +4,12 @@
 
 .mainPage {
   @include flex(flex, flex-start, stretch);
+  min-height: 400px;
 
   & > div:last-child, form {
     border-top: $border-param;
     width: 80%;
     padding: 10px;
+    height:100%;
   }
 }

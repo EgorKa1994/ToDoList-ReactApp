@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { ProjectsListWrap } from './Inbox/ProjectsListWrap';
-import { ProjectContext } from '../../../Components/AppWrap';
+import { ProjectContext } from '../../../Components/Common/Context/Context';
 import { ProjectForm } from './Inbox/ProjectForm';
 import { ProjectDetails } from './Inbox/ProjectDetails';
 
@@ -13,7 +13,7 @@ export const ProjectsPage = () => {
   return (
     <Switch>
       <Route exact path='/'>
-        <Redirect to='/inbox' />
+        <Redirect to='/start' />
       </Route>
       <Route exact path='/projects'>
         <ProjectsListWrap projects={projects} removeProject={removeProject} />

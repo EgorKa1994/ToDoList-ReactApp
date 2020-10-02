@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toObject, firestore } from '../../../../firebase/firestore';
-import { ProjectContext } from '../../../AppWrap';
+import { ProjectContext } from '../../../../Components/Common/Context/Context';
 import { setHistoryPush } from '../../../Common/Functions/comFunction';
 import { PreLoader } from '../../../Common/Components/comComponent';
 

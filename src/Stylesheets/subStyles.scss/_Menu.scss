@@ -20,17 +20,17 @@
 
 .menu_item__inbox:before {
   @extend %menu-items;
-  background-image: url('../img/icons/list.png');
+  background-image: url('../img/icons/Menu/list.png');
 }
 
 .menu_item__focus:before {
   @extend %menu-items;
-  background-image: url('../img/icons/focus.png');
+  background-image: url('../img/icons/Menu/focus.png');
 }
 
 .menu_item__project:before {
   @extend %menu-items;
-  background-image: url('../img/icons/project.png');
+  background-image: url('../img/icons/Menu/project.png');
 }
 
 .menu_item {
@@ -51,7 +51,7 @@
     }
 
     li:before {
-      background: url('../img/icons//puzzle.png') no-repeat;
+      background: url('../img/icons/Menu/puzzle.png') no-repeat;
       content: '';
       width: 15px;
       height: 15px;

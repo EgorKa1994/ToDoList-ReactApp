@@ -4,7 +4,8 @@ import { TasksInboxList } from './Inbox/TasksInboxList';
 import { TaskDetails } from './Inbox/TaskDetails';
 import { TaskForm } from './Inbox/TaskForm';
 import { TasksFocusList } from './Focus/TasksFocusList';
-import { TaskContext } from '../../AppWrap';
+import { TaskContext } from '../../../Components/Common/Context/Context';
+import { ProtectedRoute } from '../../Common/Context/ProtectedRoute';
 
 export const TasksPage = () => {
   const { tasks, addTask, editTask, removeTask } = useContext(TaskContext);
@@ -12,11 +13,11 @@ export const TasksPage = () => {
   return (
     <Switch>
       <Route exact path='/'>
-        <Redirect to='/inbox' />
+        <Redirect to='/start' />
       </Route>
-      <Route exact path='/inbox'>
+      <ProtectedRoute path='/inbox'>
         <TasksInboxList tasks={tasks} editTask={editTask} />
-      </Route>
+      </ProtectedRoute>
       <Route path='/task/new'>
         <TaskForm addTask={addTask} />
       </Route>

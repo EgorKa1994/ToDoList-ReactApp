@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { toObject, firestore } from '../firebase/firestore';
+import { toObject, firestore, auth } from '../firebase/firestore';
 
 export const useFirebaseTasks = () => {
   const [isLoadingTasks, setLoadingTasks] = useState(true);
@@ -104,5 +104,51 @@ export const useFirebaseProjects = () => {
     addProject,
     removeProject,
     editProject,
+  };
+};
+
+////////////////////////////////////////////
+
+export const useFirebaseUser = () => {
+  const [isLoadingUser, setLoadingUser] = useState(true);
+  const [errorLoadingUser, setErrorLoadingUser] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const listenUser = auth.onAuthStateChanged(
+      (user) => {
+        setUser(user);
+        setLoadingUser(false);
+      },
+      (error) => {
+        setErrorLoadingUser(error);
+      }
+    );
+    return listenUser;
+  }, []);
+
+  const register = ({ email, password }) =>
+    auth.createUserWithEmailAndPassword(email, password);
+
+  const logIn = ({ email, password }) =>
+    auth.signInWithEmailAndPassword(email, password);
+
+  const logOut = () => {
+    auth.signOut();
+  };
+
+  const update = ({ displayName }) => {
+    user.updateProfile({ displayName: displayName });
+    setUser({ ...user, displayName });
+  };
+
+  return {
+    user,
+    isLoadingUser,
+    errorLoadingUser,
+    register,
+    logIn,
+    logOut,
+    update,
   };
 };
