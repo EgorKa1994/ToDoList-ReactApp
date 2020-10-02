@@ -15,3 +15,17 @@ export const ProtectedRoute = (props) => {
     </UserConsumer>
   );
 };
+
+export const ProtectedRouteNonUser = (props) => {
+  return (
+    <UserConsumer>
+      {({ user }) =>
+        user ? (
+          <Redirect to='/inbox'></Redirect>
+        ) : (
+          <Route path={props.path}>{props.children}</Route>
+        )
+      }
+    </UserConsumer>
+  );
+};

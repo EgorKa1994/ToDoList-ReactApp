@@ -4,6 +4,7 @@ import { ProjectsListWrap } from './Inbox/ProjectsListWrap';
 import { ProjectContext } from '../../../Components/Common/Context/Context';
 import { ProjectForm } from './Inbox/ProjectForm';
 import { ProjectDetails } from './Inbox/ProjectDetails';
+import { ProtectedRoute } from '../../Common/Context/ProtectedRoute';
 
 export const ProjectsPage = () => {
   const { projects, addProject, removeProject, editProject } = useContext(
@@ -15,20 +16,20 @@ export const ProjectsPage = () => {
       <Route exact path='/'>
         <Redirect to='/start' />
       </Route>
-      <Route exact path='/projects'>
+      <ProtectedRoute exact path='/projects'>
         <ProjectsListWrap projects={projects} removeProject={removeProject} />
-      </Route>
-      <Route path='/project/new'>
+      </ProtectedRoute>
+      <ProtectedRoute path='/project/new'>
         <ProjectForm addProject={addProject} />
-      </Route>
-      <Route exact path='/project/edit/:projectId'>
+      </ProtectedRoute>
+      <ProtectedRoute exact path='/project/edit/:projectId'>
         {({
           match: {
             params: { projectId },
           },
         }) => <ProjectForm projectId={projectId} editProject={editProject} />}
-      </Route>
-      <Route path='/project/:projectId'>
+      </ProtectedRoute>
+      <ProtectedRoute path='/project/:projectId'>
         {({
           match: {
             params: { projectId },
@@ -41,7 +42,7 @@ export const ProjectsPage = () => {
             projects={projects}
           />
         )}
-      </Route>
+      </ProtectedRoute>
     </Switch>
   );
 };

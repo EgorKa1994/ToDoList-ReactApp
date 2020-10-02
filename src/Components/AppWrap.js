@@ -44,8 +44,6 @@ export const AppWrap = () => {
     update,
   } = useFirebaseUser();
 
-  console.log(user);
-
   if (isLoadingProjects || isLoadingTasks || isLoadingUser) {
     return <PreLoader />;
   }

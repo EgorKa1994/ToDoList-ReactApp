@@ -4,6 +4,10 @@ import { RegistrationForm } from './LoginComponents/RegistrationForm';
 import { LoginForm } from './LoginComponents/LoginForm';
 import { AccountPage } from '../Login/LoginComponents/AccountPage';
 import { StartPage } from '../Login/LoginComponents/StartPage';
+import {
+  ProtectedRoute,
+  ProtectedRouteNonUser,
+} from '../../Common/Context/ProtectedRoute';
 
 export const LoginPage = () => {
   return (
@@ -11,15 +15,15 @@ export const LoginPage = () => {
       <Route exact path='/'>
         <Redirect to='/start' />
       </Route>
-      <Route path='/registration'>
+      <ProtectedRouteNonUser path='/registration'>
         <RegistrationForm />
-      </Route>
-      <Route path='/login'>
+      </ProtectedRouteNonUser>
+      <ProtectedRouteNonUser path='/login'>
         <LoginForm />
-      </Route>
-      <Route path='/account'>
+      </ProtectedRouteNonUser>
+      <ProtectedRoute path='/account'>
         <AccountPage />
-      </Route>
+      </ProtectedRoute>
       <Route path='/start'>
         <StartPage />
       </Route>

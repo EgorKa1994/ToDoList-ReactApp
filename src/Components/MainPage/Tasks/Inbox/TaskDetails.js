@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ProjectContext } from '../../../../Components/Common/Context/Context';
+import { PreLoader } from '../../../Common/Components/comComponent';
 
 export const TaskDetails = ({ tasks, taskId, removeTask }) => {
   const history = useHistory();
@@ -10,7 +11,7 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
   const projects = useContext(ProjectContext);
 
   if (!choosenTask || !projects) {
-    return '...loading...';
+    return <PreLoader />;
   }
 
   return (

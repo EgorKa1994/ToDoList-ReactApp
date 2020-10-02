@@ -18,10 +18,10 @@ export const TasksPage = () => {
       <ProtectedRoute path='/inbox'>
         <TasksInboxList tasks={tasks} editTask={editTask} />
       </ProtectedRoute>
-      <Route path='/task/new'>
+      <ProtectedRoute path='/task/new'>
         <TaskForm addTask={addTask} />
-      </Route>
-      <Route exact path='/task/:taskId'>
+      </ProtectedRoute>
+      <ProtectedRoute exact path='/task/:taskId'>
         {({
           match: {
             params: { taskId },
@@ -29,17 +29,17 @@ export const TasksPage = () => {
         }) => (
           <TaskDetails tasks={tasks} taskId={taskId} removeTask={removeTask} />
         )}
-      </Route>
-      <Route path='/task/edit/:taskId'>
+      </ProtectedRoute>
+      <ProtectedRoute path='/task/edit/:taskId'>
         {({
           match: {
             params: { taskId },
           },
         }) => <TaskForm taskId={taskId} editTask={editTask} />}
-      </Route>
-      <Route exact path='/focus'>
+      </ProtectedRoute>
+      <ProtectedRoute path='/focus'>
         <TasksFocusList tasks={tasks} />
-      </Route>
+      </ProtectedRoute>
     </Switch>
   );
 };
