@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toObject, firestore } from '../../../../firebase/firestore';
-import { ProjectContext } from '../../../../Components/Common/Context/Context';
+import {
+  ProjectContext,
+  UserContext,
+} from '../../../../Components/Common/Context/Context';
 import { setHistoryPush } from '../../../Common/Functions/comFunction';
 import { PreLoader } from '../../../Common/Components/comComponent';
 import { NotFoundPage } from '../../../Common/Components/comComponent';
@@ -17,6 +20,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [isPageFound, setIsPageFound] = useState(true);
   const history = useHistory();
   const { projects } = useContext(ProjectContext);
+  const { user } = useContext(UserContext);
 
   const booleanTransformation = (val) => {
     return val == 'true' ? true : false;
@@ -71,6 +75,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
         e.preventDefault();
       }}
     >
+      <h2>{taskId ? 'Edit task' : 'Add task'}</h2>
       <div className='input-group'>
         <label htmlFor='title'>Title</label>
         <input
@@ -180,6 +185,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
                 isFocusedOn: booleanTransformation(isFocusedOn),
                 isDone: booleanTransformation(isDone),
                 projectId: checkProjectId(projectId),
+                userId: user.uid,
               });
               if (projectId) {
                 history.push('/projects');

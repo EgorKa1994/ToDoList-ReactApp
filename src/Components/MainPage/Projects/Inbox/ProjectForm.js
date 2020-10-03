@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toObject, firestore } from '../../../../firebase/firestore';
 import { PreLoader } from '../../../Common/Components/comComponent';
 import { NotFoundPage } from '../../../Common/Components/comComponent';
+import { UserContext } from '../../../Common/Context/Context';
 
 export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const [name, setName] = useState('');
@@ -11,6 +12,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const [isLoadingProj, setIsLoadingProj] = useState(true);
   const history = useHistory();
   const [isPageFound, setIsPageFound] = useState(true);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (projectId) {
@@ -54,6 +56,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
         e.preventDefault();
       }}
     >
+      <h2>{projectId ? 'Edit project' : 'Add project'}</h2>
       <div className='input-group'>
         <label htmlFor='name'>Name</label>
         <input
@@ -84,6 +87,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
               await addProject({
                 name,
                 description,
+                userId: user.uid,
               });
             }
             history.push('/projects/inbox');

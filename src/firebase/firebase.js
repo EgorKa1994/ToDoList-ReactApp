@@ -20,7 +20,7 @@ export const useFirebaseTasks = () => {
 
   const addTask = async (obj) => {
     const newTask = await firestore.collection('/tasks').add(obj);
-    setTasks([...tasks, { ...obj, id: newTask.id }]);
+    setTasks([...tasks, { ...obj }]);
   };
 
   const editTask = async (taskId, obj) => {
@@ -74,7 +74,7 @@ export const useFirebaseProjects = () => {
 
   const addProject = async (obj) => {
     const newProject = await firestore.collection('/projects').add(obj);
-    setProjects([...projects, { ...obj, id: newProject.id }]);
+    setProjects([...projects, { ...obj }]);
   };
 
   const removeProject = async (projectId) => {

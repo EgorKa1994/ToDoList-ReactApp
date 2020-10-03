@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { ProjectContext } from '../../../../Components/Common/Context/Context';
 import { PreLoader } from '../../../Common/Components/comComponent';
 import { NotFoundPage } from '../../../Common/Components/comComponent';
+import { setHistoryPush } from '../../../Common/Functions/comFunction';
 
 export const TaskDetails = ({ tasks, taskId, removeTask }) => {
   const history = useHistory();
@@ -68,7 +69,9 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
             className='removing'
             onClick={async () => {
               await removeTask(taskId);
-              history.push('/tasks/inbox');
+              history.push(
+                setHistoryPush(choosenTask.isFocusedOn, choosenTask.projectId)
+              );
             }}
           >
             Delete
@@ -76,11 +79,9 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
           <button
             className='closing'
             onClick={() => {
-              if (choosenTask.isFocusedOn) {
-                history.push('/tasks/focus');
-              } else {
-                history.push('/tasks/inbox');
-              }
+              history.push(
+                setHistoryPush(choosenTask.isFocusedOn, choosenTask.projectId)
+              );
             }}
           >
             Close

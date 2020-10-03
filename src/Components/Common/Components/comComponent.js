@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import uid from 'uid';
 
 export const TaskData = ({ task, editTask }) => {
   const [isDone, setIsDone] = useState(task.isDone);
@@ -46,7 +47,8 @@ export const TaskList = ({ tasks, editTask, type }) => {
       <ul className='list'>
         {tasks.map((task) => {
           if (!task.projectId && !task.isFocusedOn) {
-            return <TaskData key={task.id} task={task} editTask={editTask} />;
+            let newId = uid();
+            return <TaskData key={newId} task={task} editTask={editTask} />;
           }
         })}
       </ul>
@@ -56,8 +58,9 @@ export const TaskList = ({ tasks, editTask, type }) => {
       <ul className='list'>
         {tasks.map((task) => {
           if (task.isFocusedOn && !task.projectId) {
+            let newId = uid();
             return (
-              <li key={task.id}>
+              <li key={newId}>
                 <h3>{task.title}</h3>
                 <div className='transitionToDetails'>
                   <Link to={`/tasks/${task.id}`}>..</Link>

@@ -15,13 +15,7 @@ export const LoginForm = () => {
         e.preventDefault();
       }}
     >
-      <div className='authorization'>
-        <h2>
-          To use this app you need to authenticate. Please, register or logon if
-          you already have profile.
-        </h2>
-        <div></div>
-      </div>
+      <h2>Welcome</h2>
       <div className='input-group'>
         <label htmlFor='email'>Your email</label>
         <input

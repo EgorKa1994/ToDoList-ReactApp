@@ -1,4 +1,5 @@
 import React from 'react';
+import uid from 'uid';
 
 export const ProjectList = ({
   projects,
@@ -9,38 +10,41 @@ export const ProjectList = ({
 }) => {
   return (
     <ul className='list'>
-      {projects.map((project) => (
-        <li key={project.id}>
-          <h3>{project.name}</h3>
-          <div
-            className='transitionToDetails'
-            onClick={(e) => {
-              e.stopPropagation();
-              history.push(`/projects/${project.id}`);
-            }}
-          ></div>
-          <div
-            className='edit'
-            onClick={(e) => {
-              e.stopPropagation();
-              history.push(`/projects/edit/${project.id}`);
-            }}
-          ></div>
-          <div
-            className='remove'
-            onClick={async (e) => {
-              e.stopPropagation();
-              await removeProject(project.id);
-              tasks.forEach((task) => {
-                if (task.projectId == project.id) {
-                  removeTask(task.id);
-                }
-              });
-              history.push(`/projects/inbox`);
-            }}
-          ></div>
-        </li>
-      ))}
+      {projects.map((project) => {
+        let newId = uid();
+        return (
+          <li key={project.id}>
+            <h3>{project.name}</h3>
+            <div
+              className='transitionToDetails'
+              onClick={(e) => {
+                e.stopPropagation();
+                history.push(`/projects/${project.id}`);
+              }}
+            ></div>
+            <div
+              className='edit'
+              onClick={(e) => {
+                e.stopPropagation();
+                history.push(`/projects/edit/${project.id}`);
+              }}
+            ></div>
+            <div
+              className='remove'
+              onClick={async (e) => {
+                e.stopPropagation();
+                await removeProject(project.id);
+                tasks.forEach((task) => {
+                  if (task.projectId == project.id) {
+                    removeTask(task.id);
+                  }
+                });
+                history.push(`/projects/inbox`);
+              }}
+            ></div>
+          </li>
+        );
+      })}
     </ul>
   );
 };

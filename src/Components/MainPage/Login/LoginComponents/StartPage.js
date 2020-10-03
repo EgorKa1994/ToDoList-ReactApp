@@ -6,8 +6,14 @@ export const StartPage = () => {
     <div className='authorization'>
       <h2>
         To use this app you need to authenticate. Please,
-        <Link to='/registration'> register </Link>
-        or <Link to='/login'> logon </Link> if you already have profile.
+        <Link to='/registration'>
+          <span>register </span>
+        </Link>
+        or
+        <Link to='/login'>
+          <span>logon</span>
+        </Link>
+        if you already have profile.
       </h2>
       <div></div>
     </div>

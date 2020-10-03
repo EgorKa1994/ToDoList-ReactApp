@@ -16,6 +16,18 @@
     background-repeat: no-repeat;
     margin: 0 auto;
   }
+
+  span {
+    color: $secondary-color;
+    padding: 0 10px;
+    text-shadow: 1px 1px 1px $primary-color;
+    @extend %transition7;
+
+    &:hover {
+      @extend %transition7;
+      text-shadow: 5px 5px 5px $primary-color;
+    }
+  }
 }
 
 .start {

@@ -15,6 +15,7 @@ export const RegistrationForm = () => {
         e.preventDefault();
       }}
     >
+      <h2>Registration</h2>
       <div className='input-group'>
         <label htmlFor='email'>Your email</label>
         <input
