@@ -9,7 +9,11 @@ export const LoginControl = () => {
   return (
     <div className='login'>
       <div className='login_info'>
-        <div>{user ? `Hello, ${user.displayName}!` : 'Hello, user!'}</div>
+        <div>
+          {user
+            ? `Hello, ${user.displayName == null ? 'user' : user.displayName}!`
+            : 'Hello, user!'}
+        </div>
       </div>
       <div className='login_control'>
         {user == null ? (

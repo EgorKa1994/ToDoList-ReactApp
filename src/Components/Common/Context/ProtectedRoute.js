@@ -21,7 +21,7 @@ export const ProtectedRouteNonUser = (props) => {
     <UserConsumer>
       {({ user }) =>
         user ? (
-          <Redirect to='/inbox'></Redirect>
+          <Redirect to='/tasks/inbox'></Redirect>
         ) : (
           <Route path={props.path}>{props.children}</Route>
         )

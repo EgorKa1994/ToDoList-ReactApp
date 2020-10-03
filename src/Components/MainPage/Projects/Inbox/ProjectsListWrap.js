@@ -10,7 +10,7 @@ export const ProjectsListWrap = ({ projects, removeProject }) => {
   return (
     <div>
       <h2>Projects</h2>
-      <Link to='/project/new'>
+      <Link to='/projects/new'>
         <button className='addition'>Add project</button>
       </Link>
       <ProjectList

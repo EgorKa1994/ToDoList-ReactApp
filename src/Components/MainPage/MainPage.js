@@ -3,14 +3,27 @@ import { ProjectsPage } from '../MainPage/Projects/ProjectsPage';
 import { Menu } from '../MainPage/Menu.js/Menu';
 import { TasksPage } from '../MainPage/Tasks/TasksPage';
 import { LoginPage } from './Login/LoginPage';
+import { Switch, Route } from 'react-router-dom';
+import { NotFoundPage } from '../Common/Components/comComponent';
 
 export const MainPage = ({ className }) => {
   return (
     <div className={className}>
       <Menu />
-      <TasksPage />
-      <ProjectsPage />
-      <LoginPage />
+      <Switch>
+        <Route path='/tasks'>
+          <TasksPage />
+        </Route>
+        <Route path='/projects'>
+          <ProjectsPage />
+        </Route>
+        <Route path='/'>
+          <LoginPage />
+        </Route>
+        <Route>
+          <NotFoundPage />
+        </Route>
+      </Switch>
     </div>
   );
 };

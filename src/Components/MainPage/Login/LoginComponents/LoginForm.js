@@ -37,7 +37,7 @@ export const LoginForm = () => {
           className='save-close'
           onClick={async () => {
             await logIn({ email, password });
-            history.push('/inbox');
+            history.push('/tasks/inbox');
           }}
         >
           Ok

@@ -6,22 +6,33 @@ import { TaskForm } from './Inbox/TaskForm';
 import { TasksFocusList } from './Focus/TasksFocusList';
 import { TaskContext } from '../../../Components/Common/Context/Context';
 import { ProtectedRoute } from '../../Common/Context/ProtectedRoute';
+import { NotFoundPage } from '../../Common/Components/comComponent';
 
 export const TasksPage = () => {
   const { tasks, addTask, editTask, removeTask } = useContext(TaskContext);
 
   return (
     <Switch>
-      <Route exact path='/'>
-        <Redirect to='/start' />
+      <Route exact path='/tasks'>
+        <Redirect to='/tasks/inbox' />
       </Route>
-      <ProtectedRoute path='/inbox'>
+      <ProtectedRoute path='/tasks/inbox'>
         <TasksInboxList tasks={tasks} editTask={editTask} />
       </ProtectedRoute>
-      <ProtectedRoute path='/task/new'>
+      <ProtectedRoute path='/tasks/focus'>
+        <TasksFocusList tasks={tasks} />
+      </ProtectedRoute>
+      <ProtectedRoute path='/tasks/new'>
         <TaskForm addTask={addTask} />
       </ProtectedRoute>
-      <ProtectedRoute exact path='/task/:taskId'>
+      <ProtectedRoute path='/tasks/edit/:taskId'>
+        {({
+          match: {
+            params: { taskId },
+          },
+        }) => <TaskForm taskId={taskId} editTask={editTask} tasks={tasks} />}
+      </ProtectedRoute>
+      <ProtectedRoute path='/tasks/:taskId'>
         {({
           match: {
             params: { taskId },
@@ -30,16 +41,9 @@ export const TasksPage = () => {
           <TaskDetails tasks={tasks} taskId={taskId} removeTask={removeTask} />
         )}
       </ProtectedRoute>
-      <ProtectedRoute path='/task/edit/:taskId'>
-        {({
-          match: {
-            params: { taskId },
-          },
-        }) => <TaskForm taskId={taskId} editTask={editTask} />}
-      </ProtectedRoute>
-      <ProtectedRoute path='/focus'>
-        <TasksFocusList tasks={tasks} />
-      </ProtectedRoute>
+      <Route>
+        <NotFoundPage />
+      </Route>
     </Switch>
   );
 };

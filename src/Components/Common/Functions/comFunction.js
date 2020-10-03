@@ -1,12 +1,12 @@
 export const setHistoryPush = (focus, id) => {
   if (focus == 'true') {
     if (!id) {
-      return `/focus`;
+      return `/tasks/focus`;
     }
   } else {
     if (!id) {
-      return `/inbox`;
+      return `/tasks/inbox`;
     }
   }
-  return `/project/${id}`;
+  return `/projects/${id}`;
 };

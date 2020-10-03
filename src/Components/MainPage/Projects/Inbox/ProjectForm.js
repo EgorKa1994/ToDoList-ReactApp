@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toObject, firestore } from '../../../../firebase/firestore';
 import { PreLoader } from '../../../Common/Components/comComponent';
+import { NotFoundPage } from '../../../Common/Components/comComponent';
 
 export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const [name, setName] = useState('');
@@ -9,6 +10,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const [errorProj, setErrorProj] = useState(null);
   const [isLoadingProj, setIsLoadingProj] = useState(true);
   const history = useHistory();
+  const [isPageFound, setIsPageFound] = useState(true);
 
   useEffect(() => {
     if (projectId) {
@@ -17,6 +19,12 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
         .doc(projectId)
         .get()
         .then(toObject)
+        .then((project) => {
+          if (!project.name) {
+            setIsPageFound(false);
+          }
+          return project;
+        })
         .then((project) => {
           setName(project.name);
           setDescription(project.description);
@@ -30,6 +38,10 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
 
   if (isLoadingProj) {
     return <PreLoader />;
+  }
+
+  if (!isPageFound) {
+    return <NotFoundPage />;
   }
 
   if (errorProj) {
@@ -74,7 +86,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
                 description,
               });
             }
-            history.push('/projects');
+            history.push('/projects/inbox');
           }}
         >
           Save
@@ -82,7 +94,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
         <button
           className='save-close'
           onClick={() => {
-            history.push('/projects');
+            history.push('/projects/inbox');
           }}
         >
           Close

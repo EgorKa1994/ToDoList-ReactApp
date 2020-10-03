@@ -16,14 +16,14 @@ export const ProjectList = ({
             className='transitionToDetails'
             onClick={(e) => {
               e.stopPropagation();
-              history.push(`/project/${project.id}`);
+              history.push(`/projects/${project.id}`);
             }}
           ></div>
           <div
             className='edit'
             onClick={(e) => {
               e.stopPropagation();
-              history.push(`/project/edit/${project.id}`);
+              history.push(`/projects/edit/${project.id}`);
             }}
           ></div>
           <div
@@ -36,7 +36,7 @@ export const ProjectList = ({
                   removeTask(task.id);
                 }
               });
-              history.push(`/projects`);
+              history.push(`/projects/inbox`);
             }}
           ></div>
         </li>

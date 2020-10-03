@@ -2,6 +2,7 @@ import React from 'react';
 import { useFirebaseTasks } from '../../../../firebase/firebase';
 import { useHistory } from 'react-router-dom';
 import { TaskData } from '../../../Common/Components/comComponent';
+import { NotFoundPage } from '../../../Common/Components/comComponent';
 
 export const ProjectDetails = ({ removeProject, projectId, projects }) => {
   const { tasks, isLoading, error, editTask, removeTask } = useFirebaseTasks();
@@ -20,6 +21,10 @@ export const ProjectDetails = ({ removeProject, projectId, projects }) => {
         <div>{'....loading...'}</div>
       </>
     );
+  }
+
+  if (!choosenProject) {
+    return <NotFoundPage />;
   }
 
   if (error) {
@@ -52,7 +57,7 @@ export const ProjectDetails = ({ removeProject, projectId, projects }) => {
           <button
             className='editting'
             onClick={() => {
-              history.push(`/project/edit/${choosenProject.id}`);
+              history.push(`/projects/edit/${choosenProject.id}`);
             }}
           >
             Edit

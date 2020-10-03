@@ -45,9 +45,9 @@ export const RegistrationForm = () => {
       <div className='control'>
         <button
           className='save-close'
-          onClick={() => {
-            register({ email, password });
-            history.push('/inbox');
+          onClick={async () => {
+            await register({ email, password });
+            history.push('/account');
           }}
         >
           Save

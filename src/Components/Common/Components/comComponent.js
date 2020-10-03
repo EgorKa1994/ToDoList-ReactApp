@@ -34,7 +34,7 @@ export const TaskData = ({ task, editTask }) => {
       </div>
       <h3>{task.title}</h3>
       <div className='transitionToDetails'>
-        <Link to={`/task/${task.id}`}>..</Link>
+        <Link to={`/tasks/${task.id}`}>..</Link>
       </div>
     </li>
   );
@@ -60,7 +60,7 @@ export const TaskList = ({ tasks, editTask, type }) => {
               <li key={task.id}>
                 <h3>{task.title}</h3>
                 <div className='transitionToDetails'>
-                  <Link to={`/task/${task.id}`}>..</Link>
+                  <Link to={`/tasks/${task.id}`}>..</Link>
                 </div>
               </li>
             );
@@ -79,6 +79,18 @@ export const PreLoader = () => {
       <div className='item-3'></div>
       <div className='item-4'></div>
       <div className='item-5'></div>
+    </div>
+  );
+};
+
+export const NotFoundPage = () => {
+  return (
+    <div className='start'>
+      <h2>
+        Oooooooooops! This page does not exist..
+        <Link>Try the homepage</Link>
+      </h2>
+      <div className='not-found'></div>
     </div>
   );
 };

@@ -1,11 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../../Common/Context/Context';
+import { useHistory } from 'react-router-dom';
 
 export const AccountPage = () => {
   const { update, user } = useContext(UserContext);
   const [displayName, setDisplayName] = useState(
     user.displayName ? user.displayName : ''
   );
+
+  const history = useHistory();
 
   return (
     <>
@@ -33,11 +36,19 @@ export const AccountPage = () => {
             className='save-close'
             onClick={() => {
               update({ displayName });
+              history.push('./tasks/inbox');
             }}
           >
             Save
           </button>
-          <button className='save-close'>Close</button>
+          <button
+            className='save-close'
+            onClick={() => {
+              history.push('./tasks/inbox');
+            }}
+          >
+            Close
+          </button>
         </div>
       </form>
     </>

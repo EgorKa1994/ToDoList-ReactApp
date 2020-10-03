@@ -6,7 +6,7 @@ export const TasksInboxList = ({ tasks, editTask }) => {
   return (
     <div>
       <h2>Inbox</h2>
-      <Link to='/task/new'>
+      <Link to='/tasks/new'>
         <button className='addition'>Add task</button>
       </Link>
       <TaskList tasks={tasks} editTask={editTask} type='inbox' />

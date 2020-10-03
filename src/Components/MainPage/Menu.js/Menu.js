@@ -39,17 +39,17 @@ export const Menu = () => {
   return (
     <div className='menu'>
       <MenuItem kind='menu_item__inbox'>
-        <NavLink to='/inbox'>
+        <NavLink to='/tasks/inbox'>
           <MenuItemContent>Inbox</MenuItemContent>
         </NavLink>
       </MenuItem>
       <MenuItem kind='menu_item__focus'>
-        <NavLink to='/focus'>
+        <NavLink to='/tasks/focus'>
           <MenuItemContent>Focus</MenuItemContent>
         </NavLink>
       </MenuItem>
       <MenuItem kind='menu_item__project'>
-        <NavLink to='/projects'>
+        <NavLink to='/projects/inbox'>
           <MenuItemContent>Projects</MenuItemContent>
         </NavLink>
         <ProjectInMenu projects={projects} />

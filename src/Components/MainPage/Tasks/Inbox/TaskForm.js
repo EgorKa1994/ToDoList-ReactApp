@@ -4,6 +4,7 @@ import { toObject, firestore } from '../../../../firebase/firestore';
 import { ProjectContext } from '../../../../Components/Common/Context/Context';
 import { setHistoryPush } from '../../../Common/Functions/comFunction';
 import { PreLoader } from '../../../Common/Components/comComponent';
+import { NotFoundPage } from '../../../Common/Components/comComponent';
 
 export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [title, setTitle] = useState('');
@@ -13,6 +14,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [projectId, setProjectId] = useState('');
   const [errorTask, setErrorTask] = useState(null);
   const [isLoadingTask, setIsLoadingTask] = useState(true);
+  const [isPageFound, setIsPageFound] = useState(true);
   const history = useHistory();
   const { projects } = useContext(ProjectContext);
 
@@ -32,6 +34,12 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
         .get()
         .then(toObject)
         .then((task) => {
+          if (!task.title) {
+            setIsPageFound(false);
+          }
+          return task;
+        })
+        .then((task) => {
           setTitle(task.title);
           setDescription(task.description);
           setIsFocusedOn(String(task.isFocusedOn));
@@ -44,6 +52,10 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
       setIsLoadingTask(false);
     }
   }, []);
+
+  if (!isPageFound) {
+    return <NotFoundPage />;
+  }
 
   if (isLoadingTask) {
     return <PreLoader />;
@@ -173,9 +185,9 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
                 history.push('/projects');
               } else {
                 if (isFocusedOn == 'true') {
-                  history.push('/focus');
+                  history.push('/tasks/focus');
                 } else {
-                  history.push('/inbox');
+                  history.push('/tasks/inbox');
                 }
               }
             }
@@ -189,7 +201,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
             if (taskId) {
               history.push(setHistoryPush(isFocusedOn, projectId));
             } else {
-              history.push('/inbox');
+              history.push('/tasks/inbox');
             }
           }}
         >

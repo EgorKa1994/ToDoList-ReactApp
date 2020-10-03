@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ProjectContext } from '../../../../Components/Common/Context/Context';
 import { PreLoader } from '../../../Common/Components/comComponent';
+import { NotFoundPage } from '../../../Common/Components/comComponent';
 
 export const TaskDetails = ({ tasks, taskId, removeTask }) => {
   const history = useHistory();
@@ -10,7 +11,11 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
 
   const projects = useContext(ProjectContext);
 
-  if (!choosenTask || !projects) {
+  if (!choosenTask) {
+    return <NotFoundPage />;
+  }
+
+  if (!projects) {
     return <PreLoader />;
   }
 
@@ -54,7 +59,7 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
           <button
             className='editting'
             onClick={() => {
-              history.push(`/task/edit/${taskId}`);
+              history.push(`/tasks/edit/${taskId}`);
             }}
           >
             Edit
@@ -63,7 +68,7 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
             className='removing'
             onClick={async () => {
               await removeTask(taskId);
-              history.push('/inbox');
+              history.push('/tasks/inbox');
             }}
           >
             Delete
@@ -72,9 +77,9 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
             className='closing'
             onClick={() => {
               if (choosenTask.isFocusedOn) {
-                history.push('/focus');
+                history.push('/tasks/focus');
               } else {
-                history.push('/inbox');
+                history.push('/tasks/inbox');
               }
             }}
           >

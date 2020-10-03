@@ -3,7 +3,6 @@
 @import '../helpers/mixins';
 
 .authorization {
-
   h2 {
     text-align: center;
     padding: 30px;
@@ -17,5 +16,20 @@
     background-repeat: no-repeat;
     margin: 0 auto;
   }
+}
 
+.start {
+  h2 {
+    text-align: center;
+    padding: 30px;
+  }
+
+  .not-found {
+    width: 150px;
+    height: 150px;
+    background-image: url('../img/icons/notFound.png');
+    background-position: cover;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+  }
 }

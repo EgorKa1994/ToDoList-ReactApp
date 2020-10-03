@@ -8,24 +8,28 @@ import {
   ProtectedRoute,
   ProtectedRouteNonUser,
 } from '../../Common/Context/ProtectedRoute';
+import { NotFoundPage } from '../../Common/Components/comComponent';
 
 export const LoginPage = () => {
   return (
     <Switch>
-      <Route exact path='/'>
+      <ProtectedRouteNonUser exact path='/'>
         <Redirect to='/start' />
-      </Route>
+      </ProtectedRouteNonUser>
       <ProtectedRouteNonUser path='/registration'>
         <RegistrationForm />
       </ProtectedRouteNonUser>
-      <ProtectedRouteNonUser path='/login'>
+      <Route path='/login'>
         <LoginForm />
-      </ProtectedRouteNonUser>
+      </Route>
       <ProtectedRoute path='/account'>
         <AccountPage />
       </ProtectedRoute>
       <Route path='/start'>
         <StartPage />
+      </Route>
+      <Route>
+        <NotFoundPage />
       </Route>
     </Switch>
   );
