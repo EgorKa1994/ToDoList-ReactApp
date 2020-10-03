@@ -9,7 +9,13 @@ export const ProtectedRoute = (props) => {
         user ? (
           <Route path={props.path}>{props.children}</Route>
         ) : (
-          <Redirect to='/start'></Redirect>
+          <Route path={props.path}>
+            {({ location }) => (
+              <Redirect
+                to={{ pathname: '/login', state: { location } }}
+              ></Redirect>
+            )}
+          </Route>
         )
       }
     </UserConsumer>

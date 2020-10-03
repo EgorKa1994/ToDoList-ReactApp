@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../../Common/Context/Context';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { logIn } = useContext(UserContext);
   const history = useHistory();
+  const location = useLocation();
 
   return (
     <form
@@ -14,6 +15,13 @@ export const LoginForm = () => {
         e.preventDefault();
       }}
     >
+      <div className='authorization'>
+        <h2>
+          To use this app you need to authenticate. Please, register or logon if
+          you already have profile.
+        </h2>
+        <div></div>
+      </div>
       <div className='input-group'>
         <label htmlFor='email'>Your email</label>
         <input
@@ -37,7 +45,11 @@ export const LoginForm = () => {
           className='save-close'
           onClick={async () => {
             await logIn({ email, password });
-            history.push('/tasks/inbox');
+            if (location.state?.location) {
+              history.replace(location.state.location.pathname);
+            } else {
+              history.push('/tasks/inbox');
+            }
           }}
         >
           Ok
