@@ -13,7 +13,7 @@ import {
   TaskProvider,
   UserProvider,
 } from './Common/Context/Context';
-import { PreLoader } from '../Components/Common/Components/comComponent';
+import { PreLoader } from '../Components/Common/Components/Preloader';
 
 export const AppWrap = ({ user }) => {
   // const {

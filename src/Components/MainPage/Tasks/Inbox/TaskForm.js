@@ -6,8 +6,8 @@ import {
   UserContext,
 } from '../../../../Components/Common/Context/Context';
 import { setHistoryPush } from '../../../Common/Functions/comFunction';
-import { PreLoader } from '../../../Common/Components/comComponent';
-import { NotFoundPage } from '../../../Common/Components/comComponent';
+import { PreLoader } from '../../../Common/Components/Preloader';
+import { NotFoundPage } from '../../../Common/Components/NotFoundPage';
 
 export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [title, setTitle] = useState('');

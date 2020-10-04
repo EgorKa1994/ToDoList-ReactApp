@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toObject, firestore } from '../../../../firebase/firestore';
-import { PreLoader } from '../../../Common/Components/comComponent';
-import { NotFoundPage } from '../../../Common/Components/comComponent';
+import { PreLoader } from '../../../Common/Components/Preloader';
+import { NotFoundPage } from '../../../Common/Components/NotFoundPage';
 import { UserContext } from '../../../Common/Context/Context';
 
 export const ProjectForm = ({ editProject, projectId, addProject }) => {

@@ -8,7 +8,7 @@ import {
   ProtectedRoute,
   ProtectedRouteNonUser,
 } from '../../Common/Context/ProtectedRoute';
-import { NotFoundPage } from '../../Common/Components/comComponent';
+import { NotFoundPage } from '../../Common/Components/NotFoundPage';
 
 export const LoginPage = () => {
   return (

@@ -4,7 +4,7 @@ import { Menu } from '../MainPage/Menu.js/Menu';
 import { TasksPage } from '../MainPage/Tasks/TasksPage';
 import { LoginPage } from './Login/LoginPage';
 import { Switch, Route } from 'react-router-dom';
-import { NotFoundPage } from '../Common/Components/comComponent';
+import { NotFoundPage } from '../Common/Components/NotFoundPage';
 
 export const MainPage = ({ className }) => {
   return (

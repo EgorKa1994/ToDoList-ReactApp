@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PreLoader } from '../../Common/Components/comComponent';
+import { PreLoader } from '../../Common/Components/Preloader';
 
 export const WeatherLocation = () => {
   const { weather, isLoading, error } = usePositionAndWeather();

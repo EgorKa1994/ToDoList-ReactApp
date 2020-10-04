@@ -5,7 +5,7 @@ import { ProjectContext } from '../../../Components/Common/Context/Context';
 import { ProjectForm } from './Inbox/ProjectForm';
 import { ProjectDetails } from './Inbox/ProjectDetails';
 import { ProtectedRoute } from '../../Common/Context/ProtectedRoute';
-import { NotFoundPage } from '../../Common/Components/comComponent';
+import { NotFoundPage } from '../../Common/Components/NotFoundPage';
 
 export const ProjectsPage = () => {
   const { projects, addProject, removeProject, editProject } = useContext(

@@ -2,7 +2,7 @@ import React from 'react';
 import { AppWrap } from './Components/AppWrap';
 import { useFirebaseUser } from './firebase/firebase';
 import { UserProvider } from './Components/Common/Context/Context';
-import { PreLoader } from './Components/Common/Components/comComponent';
+import { PreLoader } from './Components/Common/Components/Preloader';
 
 export const App = () => {
   const {

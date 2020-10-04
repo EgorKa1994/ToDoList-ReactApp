@@ -6,7 +6,7 @@ import { TaskForm } from './Inbox/TaskForm';
 import { TasksFocusList } from './Focus/TasksFocusList';
 import { TaskContext } from '../../../Components/Common/Context/Context';
 import { ProtectedRoute } from '../../Common/Context/ProtectedRoute';
-import { NotFoundPage } from '../../Common/Components/comComponent';
+import { NotFoundPage } from '../../Common/Components/NotFoundPage';
 
 export const TasksPage = () => {
   const { tasks, addTask, editTask, removeTask } = useContext(TaskContext);

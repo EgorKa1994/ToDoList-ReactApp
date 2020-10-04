@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ProjectContext } from '../../../../Components/Common/Context/Context';
-import { PreLoader } from '../../../Common/Components/comComponent';
-import { NotFoundPage } from '../../../Common/Components/comComponent';
+import { PreLoader } from '../../../Common/Components/Preloader';
+import { NotFoundPage } from '../../../Common/Components/NotFoundPage';
 import { setHistoryPush } from '../../../Common/Functions/comFunction';
 
 export const TaskDetails = ({ tasks, taskId, removeTask }) => {
