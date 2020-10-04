@@ -15,7 +15,17 @@ import {
 } from './Common/Context/Context';
 import { PreLoader } from '../Components/Common/Components/comComponent';
 
-export const AppWrap = () => {
+export const AppWrap = ({ user }) => {
+  // const {
+  //   user,
+  //   isLoadingUser,
+  //   errorLoadingUser,
+  //   register,
+  //   logIn,
+  //   logOut,
+  //   update,
+  // } = useFirebaseUser();
+
   const {
     projects,
     isLoadingProjects,
@@ -32,29 +42,17 @@ export const AppWrap = () => {
     addTask,
     editTask,
     removeTask,
-  } = useFirebaseTasks();
+  } = useFirebaseTasks({ user });
 
-  const {
-    user,
-    isLoadingUser,
-    errorLoadingUser,
-    register,
-    logIn,
-    logOut,
-    update,
-  } = useFirebaseUser();
-
-  if (isLoadingProjects || isLoadingTasks || isLoadingUser) {
+  if (isLoadingProjects || isLoadingTasks) {
     return <PreLoader />;
   }
 
-  if (errorLoadingProjects || errorLoadingTasks || errorLoadingUser) {
+  if (errorLoadingProjects || errorLoadingTasks) {
     if (errorLoadingProjects) {
       return `There is error ${errorLoadingProjects}`;
     } else if (errorLoadingTasks) {
       return `There is error ${errorLoadingTasks}`;
-    } else if (errorLoadingUser) {
-      return `There is error ${errorLoadingUser}`;
     }
   }
 
@@ -62,16 +60,16 @@ export const AppWrap = () => {
     <>
       <div id='app'>
         <BrowserRouter>
-          <UserProvider value={{ user, register, logIn, logOut, update }}>
-            <Header />
-            <TaskProvider value={{ tasks, addTask, removeTask, editTask }}>
-              <ProjectProvider
-                value={{ projects, addProject, removeProject, editProject }}
-              >
-                <MainPage className={'mainPage'} />
-              </ProjectProvider>
-            </TaskProvider>
-          </UserProvider>
+          {/* <UserProvider value={{ user, register, logIn, logOut, update }}> */}
+          <Header />
+          <TaskProvider value={{ tasks, addTask, removeTask, editTask }}>
+            <ProjectProvider
+              value={{ projects, addProject, removeProject, editProject }}
+            >
+              <MainPage className={'mainPage'} />
+            </ProjectProvider>
+          </TaskProvider>
+          {/* </UserProvider> */}
         </BrowserRouter>
       </div>
     </>

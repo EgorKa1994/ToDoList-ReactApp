@@ -1,5 +1,4 @@
 import React from 'react';
-import uid from 'uid';
 
 export const ProjectList = ({
   projects,
@@ -11,7 +10,6 @@ export const ProjectList = ({
   return (
     <ul className='list'>
       {projects.map((project) => {
-        let newId = uid();
         return (
           <li key={project.id}>
             <h3>{project.name}</h3>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import uid from 'uid';
 
 export const TaskData = ({ task, editTask }) => {
   const [isDone, setIsDone] = useState(task.isDone);
@@ -15,6 +14,7 @@ export const TaskData = ({ task, editTask }) => {
         id='checkBox'
         name='checkBox'
         onChange={async () => {
+          console.log(task.id);
           await setIsDone(!isDone);
           await editTask(task.id, { ...task, isDone: isDone ? false : true });
         }}
@@ -23,6 +23,7 @@ export const TaskData = ({ task, editTask }) => {
       <div
         style={{ fontSize: 30 }}
         onClick={async () => {
+          console.log(task.id);
           await setIsFocusedOn(!isFocusedOn);
           await editTask(task.id, {
             ...task,
@@ -47,8 +48,7 @@ export const TaskList = ({ tasks, editTask, type }) => {
       <ul className='list'>
         {tasks.map((task) => {
           if (!task.projectId && !task.isFocusedOn) {
-            let newId = uid();
-            return <TaskData key={newId} task={task} editTask={editTask} />;
+            return <TaskData key={task.id} task={task} editTask={editTask} />;
           }
         })}
       </ul>
@@ -58,9 +58,8 @@ export const TaskList = ({ tasks, editTask, type }) => {
       <ul className='list'>
         {tasks.map((task) => {
           if (task.isFocusedOn && !task.projectId) {
-            let newId = uid();
             return (
-              <li key={newId}>
+              <li key={task.id}>
                 <h3>{task.title}</h3>
                 <div className='transitionToDetails'>
                   <Link to={`/tasks/${task.id}`}>..</Link>
@@ -91,7 +90,7 @@ export const NotFoundPage = () => {
     <div className='start'>
       <h2>
         Oooooooooops! This page does not exist..
-        <Link>Try the homepage</Link>
+        {/* <Link>Try the homepage</Link> */}
       </h2>
       <div className='not-found'></div>
     </div>

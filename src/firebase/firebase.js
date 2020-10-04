@@ -1,26 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { toObject, firestore, auth } from '../firebase/firestore';
+import { UserContext } from '../Components/Common/Context/Context';
 
 export const useFirebaseTasks = () => {
   const [isLoadingTasks, setLoadingTasks] = useState(true);
   const [errorLoadingTasks, setErrorLoadingTasks] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    firestore
-      .collection('/tasks')
-      .get()
-      .then((snapshot) => snapshot.docs.map(toObject))
-      .then((tasks) => {
-        setTasks(tasks);
-      })
-      .catch((error) => setErrorLoadingTasks(error))
-      .finally(setLoadingTasks(false));
-  }, []);
+    if (user) {
+      firestore
+        .collection('/tasks')
+        .where('userId', '==', user.uid)
+        .get()
+        .then((snapshot) => snapshot.docs.map(toObject))
+        .then((tasks) => {
+          setTasks(tasks);
+        })
+        .catch((error) => setErrorLoadingTasks(error))
+        .finally(setLoadingTasks(false));
+    }
+  }, [user]);
 
   const addTask = async (obj) => {
     const newTask = await firestore.collection('/tasks').add(obj);
-    setTasks([...tasks, { ...obj }]);
+    setTasks([...tasks, { ...obj, id: newTask.id }]);
   };
 
   const editTask = async (taskId, obj) => {
@@ -59,22 +64,26 @@ export const useFirebaseProjects = () => {
   const [isLoadingProjects, setLoadingProjects] = useState(true);
   const [errorLoadingProjects, setErrorLoadingProjects] = useState(null);
   const [projects, setProjects] = useState([]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    firestore
-      .collection('/projects')
-      .get()
-      .then((snapshot) => snapshot.docs.map(toObject))
-      .then((projects) => {
-        setProjects(projects);
-      })
-      .catch((error) => setErrorLoadingProjects(error))
-      .finally(setLoadingProjects(false));
-  }, []);
+    if (user) {
+      firestore
+        .collection('/projects')
+        .where('userId', '==', user.uid)
+        .get()
+        .then((snapshot) => snapshot.docs.map(toObject))
+        .then((projects) => {
+          setProjects(projects);
+        })
+        .catch((error) => setErrorLoadingProjects(error))
+        .finally(setLoadingProjects(false));
+    }
+  }, [user]);
 
   const addProject = async (obj) => {
     const newProject = await firestore.collection('/projects').add(obj);
-    setProjects([...projects, { ...obj }]);
+    setProjects([...projects, { ...obj, id: newProject.id }]);
   };
 
   const removeProject = async (projectId) => {

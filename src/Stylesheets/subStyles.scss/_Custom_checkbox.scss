@@ -1,20 +1,7 @@
 @import 'helpers/placeholderSelector';
 
+
 .custom-checkbox {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-}
-
-.custom-checkbox+label {
-  display: inline-flex;
-  align-items: center;
-  user-select: none;
-
-}
-.custom-checkbox+label::before {
-  content: '';
-  display: inline-block;
   width: 20px;
   height: 20px;
   flex-shrink: 0;
@@ -25,17 +12,5 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 50% 50%;
-
 }
 
-.custom-checkbox:checked+label::before {
-  border-color: $primary-color;
-  background-color: $fifth-color;
-  background-image: url('../img/icons/tick.png');
-  @extend %transition7;
-}
-
-.custom-checkbox:not(:disabled)+label:hover::before {
-  background-color: $fourth-color;
-  @extend %transition7;
-}

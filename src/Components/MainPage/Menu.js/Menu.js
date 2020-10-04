@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ProjectContext } from '../../../Components/Common/Context/Context';
 import clsx from 'clsx';
+import { UserContext } from '../../Common/Context/Context';
 
 const itemKind = {
   inbox: 'menu_item__inbox',
@@ -24,13 +25,21 @@ const MenuItemContent = ({ children }) => {
 };
 
 const ProjectInMenu = ({ projects }) => {
-  return (
-    <ul>
-      {projects.map((project) => (
-        <li key={project.id}>{project.name}</li>
-      ))}
-    </ul>
-  );
+  const { user } = useContext(UserContext);
+
+  if (!user) {
+    return null;
+  } else {
+    return (
+      <ul>
+        {projects.map((project) => {
+          if (project.userId == user.uid) {
+            return <li key={project.id}>{project.name}</li>;
+          }
+        })}
+      </ul>
+    );
+  }
 };
 
 export const Menu = () => {
