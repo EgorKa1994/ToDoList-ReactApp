@@ -14,6 +14,9 @@ const app = initializeApp({
 export const firestore = app.firestore();
 export const auth = app.auth();
 
+window.firestore = firestore;
+window.auth = auth;
+
 export function toObject(doc) {
   return {
     id: doc.id,

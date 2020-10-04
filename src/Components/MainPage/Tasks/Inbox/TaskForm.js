@@ -22,6 +22,8 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
   const { projects } = useContext(ProjectContext);
   const { user } = useContext(UserContext);
 
+  console.log(user);
+
   const booleanTransformation = (val) => {
     return val == 'true' ? true : false;
   };

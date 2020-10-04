@@ -13,6 +13,8 @@ export const App = () => {
     logIn,
     logOut,
     update,
+    errorLogin,
+    errorRegistration,
   } = useFirebaseUser();
 
   if (isLoadingUser) {
@@ -25,7 +27,17 @@ export const App = () => {
 
   return (
     <>
-      <UserProvider value={{ user, register, logIn, logOut, update }}>
+      <UserProvider
+        value={{
+          user,
+          register,
+          logIn,
+          logOut,
+          update,
+          errorLogin,
+          errorRegistration,
+        }}
+      >
         <AppWrap />
       </UserProvider>
     </>

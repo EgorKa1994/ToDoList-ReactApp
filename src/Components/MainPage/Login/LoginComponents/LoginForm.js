@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../../Common/Context/Context';
 import { useHistory, useLocation } from 'react-router-dom';
+import { ErrorMessage } from '../../../Common/Components/ErrorMessage';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { logIn } = useContext(UserContext);
+  const { logIn, errorLogin } = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
 
@@ -34,6 +35,7 @@ export const LoginForm = () => {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
       </div>
+      <div>{errorLogin ? <ErrorMessage error={errorLogin} /> : ''}</div>
       <div className='control'>
         <button
           className='save-close'

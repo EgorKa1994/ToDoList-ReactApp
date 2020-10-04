@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export const TaskData = ({ task, editTask }) => {
@@ -14,16 +14,15 @@ export const TaskData = ({ task, editTask }) => {
         id='checkBox'
         name='checkBox'
         onChange={async () => {
-          console.log(task.id);
           await setIsDone(!isDone);
           await editTask(task.id, { ...task, isDone: isDone ? false : true });
         }}
       ></input>
       <label htmlFor='checkBox'></label>
       <div
+        id='focus'
         style={{ fontSize: 30 }}
         onClick={async () => {
-          console.log(task.id);
           await setIsFocusedOn(!isFocusedOn);
           await editTask(task.id, {
             ...task,

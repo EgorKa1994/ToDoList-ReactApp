@@ -20,6 +20,8 @@ export const useFirebaseTasks = () => {
         })
         .catch((error) => setErrorLoadingTasks(error))
         .finally(setLoadingTasks(false));
+    } else {
+      setLoadingTasks(false);
     }
   }, [user]);
 
@@ -78,6 +80,8 @@ export const useFirebaseProjects = () => {
         })
         .catch((error) => setErrorLoadingProjects(error))
         .finally(setLoadingProjects(false));
+    } else {
+      setLoadingProjects(false);
     }
   }, [user]);
 
@@ -123,24 +127,34 @@ export const useFirebaseUser = () => {
   const [errorLoadingUser, setErrorLoadingUser] = useState(null);
   const [user, setUser] = useState(null);
 
+  const [errorLogin, setErrorLogin] = useState(null);
+  const [errorRegistration, setErrorRegistration] = useState(null);
+
   useEffect(() => {
-    const listenUser = auth.onAuthStateChanged(
+    auth.onAuthStateChanged(
       (user) => {
-        setUser(user);
+        setUser(user ? user : null);
         setLoadingUser(false);
       },
       (error) => {
         setErrorLoadingUser(error);
       }
     );
-    return listenUser;
   }, []);
 
   const register = ({ email, password }) =>
-    auth.createUserWithEmailAndPassword(email, password);
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(setErrorLogin(null))
+      .catch((error) => {
+        setErrorRegistration(error.message);
+      });
 
   const logIn = ({ email, password }) =>
-    auth.signInWithEmailAndPassword(email, password);
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(setErrorLogin(null))
+      .catch((error) => setErrorLogin(error.message));
 
   const logOut = () => {
     auth.signOut();
@@ -159,5 +173,7 @@ export const useFirebaseUser = () => {
     logIn,
     logOut,
     update,
+    errorLogin,
+    errorRegistration,
   };
 };

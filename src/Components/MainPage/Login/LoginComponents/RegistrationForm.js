@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../../Common/Context/Context';
 import { useHistory } from 'react-router-dom';
+import { ErrorMessage } from '../../../Common/Components/ErrorMessage';
 
 export const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const { register } = useContext(UserContext);
+  const { register, errorRegistration } = useContext(UserContext);
   const history = useHistory();
 
   return (
@@ -43,12 +44,14 @@ export const RegistrationForm = () => {
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         ></input>
       </div>
+      <div>
+        {errorRegistration ? <ErrorMessage error={errorRegistration} /> : ''}
+      </div>
       <div className='control'>
         <button
           className='save-close'
           onClick={async () => {
             await register({ email, password });
-            history.push('/account');
           }}
         >
           Save
