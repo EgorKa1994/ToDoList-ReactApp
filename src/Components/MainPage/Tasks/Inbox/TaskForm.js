@@ -8,6 +8,8 @@ import {
 import { setHistoryPush } from '../../../Common/Functions/comFunction';
 import { PreLoader } from '../../../Common/Components/Preloader';
 import { NotFoundPage } from '../../../Common/Components/NotFoundPage';
+import { validateTitle } from '../../../Common/Functions/comFunction';
+import { ErrorInputMessage } from '../../../Common/Components/ErrorInputMessage';
 
 export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [title, setTitle] = useState('');
@@ -21,8 +23,8 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
   const history = useHistory();
   const { projects } = useContext(ProjectContext);
   const { user } = useContext(UserContext);
-
-  console.log(user);
+  const [errorTitleInput, setErrorTitleInput] = useState([]);
+  const [formValid, setFormValid] = useState(false);
 
   const booleanTransformation = (val) => {
     return val == 'true' ? true : false;
@@ -40,6 +42,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
         .get()
         .then(toObject)
         .then((task) => {
+          setFormValid(true);
           if (!task.title) {
             setIsPageFound(false);
           }
@@ -84,8 +87,21 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
           type='text'
           name='title'
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={async (e) => {
+            setTitle(e.target.value);
+            setErrorTitleInput(validateTitle(e.target.value));
+            validateTitle(e.target.value).length == 0
+              ? setFormValid(true)
+              : setFormValid(false);
+          }}
         ></input>
+        <div>
+          {errorTitleInput.length > 0 ? (
+            <ErrorInputMessage errors={errorTitleInput} />
+          ) : (
+            ''
+          )}
+        </div>
       </div>
       <div className='input-group'>
         <label htmlFor='description'>Description</label>
@@ -168,7 +184,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
       </div>
       <div className='control'>
         <button
-          className='save-close'
+          className={formValid ? 'save-close' : 'save-close disabled'}
           type='submit'
           onClick={async () => {
             if (taskId) {
@@ -200,6 +216,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
               }
             }
           }}
+          disabled={formValid ? false : true}
         >
           Save
         </button>

@@ -4,6 +4,8 @@ import { toObject, firestore } from '../../../../firebase/firestore';
 import { PreLoader } from '../../../Common/Components/Preloader';
 import { NotFoundPage } from '../../../Common/Components/NotFoundPage';
 import { UserContext } from '../../../Common/Context/Context';
+import { validateTitle } from '../../../Common/Functions/comFunction';
+import { ErrorInputMessage } from '../../../Common/Components/ErrorInputMessage';
 
 export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const [name, setName] = useState('');
@@ -13,6 +15,8 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const history = useHistory();
   const [isPageFound, setIsPageFound] = useState(true);
   const { user } = useContext(UserContext);
+  const [errorTitleInput, setErrorTitleInput] = useState([]);
+  const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
     if (projectId) {
@@ -22,6 +26,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
         .get()
         .then(toObject)
         .then((project) => {
+          setFormValid(true);
           if (!project.name) {
             setIsPageFound(false);
           }
@@ -58,13 +63,26 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
     >
       <h2>{projectId ? 'Edit project' : 'Add project'}</h2>
       <div className='input-group'>
-        <label htmlFor='name'>Name</label>
+        <label htmlFor='name'>Title</label>
         <input
           type='text'
           name='name'
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value);
+            setErrorTitleInput(validateTitle(e.target.value));
+            validateTitle(e.target.value).length == 0
+              ? setFormValid(true)
+              : setFormValid(false);
+          }}
         ></input>
+        <div>
+          {errorTitleInput.length > 0 ? (
+            <ErrorInputMessage errors={errorTitleInput} />
+          ) : (
+            ''
+          )}
+        </div>
       </div>
       <div className='input-group'>
         <label htmlFor='description'>Description</label>
@@ -76,7 +94,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
       </div>
       <div className='control'>
         <button
-          className='save-close'
+          className={formValid ? 'save-close' : 'save-close disabled'}
           onClick={async () => {
             if (projectId) {
               await editProject(projectId, {
@@ -92,6 +110,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
             }
             history.push('/projects/inbox');
           }}
+          disabled={formValid ? false : true}
         >
           Save
         </button>

@@ -1,15 +1,25 @@
 @import '../helpers/variables';
 @import '../helpers/placeholderSelector';
 
-.error-message {
-  width: 50%;
-  margin: 20px 0 10px 0;
-  text-align: center;
+
+.error {
+  box-shadow: 0px 0px 24px 2px $delete-color;
   padding: 5px;
   background-color: $fourth-color;
   color: $delete-color;
   @extend %border;
   border-color: $delete-color;
-  border-radius: 5%;
+  @extend %borderRadius5;
   font-style: italic;
+}
+
+.error-message {
+  width: 50%;
+  margin: 20px 0 10px 0;
+  text-align: center;
+}
+
+.error-input-message {
+  margin: 10px 0 5px 0;
+  font-size: 0.7em;
 }
