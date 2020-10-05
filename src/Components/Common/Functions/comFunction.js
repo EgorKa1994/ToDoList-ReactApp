@@ -31,3 +31,21 @@ export const validateTitle = (value, language = 'EN') => {
   }
   return errors;
 };
+
+export const validatePasswordConfirmaion = (
+  password,
+  passwordConfirmation,
+  language
+) => {
+  let error = null;
+  if (password === passwordConfirmation) {
+    return error;
+  } else {
+    if (language == 'EN') {
+      error = 'Password and password confirmation are not the same!';
+    } else {
+      error = 'Пароль и подтверждение не совпадают!';
+    }
+    return error;
+  }
+};

@@ -145,7 +145,10 @@ export const useFirebaseUser = () => {
   const register = ({ email, password }) =>
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then(setErrorLogin(null))
+      .then(() => {
+        setErrorLogin(null);
+        setErrorRegistration(null);
+      })
       .catch((error) => {
         setErrorRegistration(error.message);
       });
@@ -153,11 +156,22 @@ export const useFirebaseUser = () => {
   const logIn = ({ email, password }) =>
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(setErrorLogin(null))
+      .then(() => {
+        setErrorLogin(null);
+        setErrorRegistration(null);
+      })
       .catch((error) => setErrorLogin(error.message));
 
   const logOut = () => {
     auth.signOut();
+  };
+
+  const changeErrorRegistration = () => {
+    setErrorRegistration(null);
+  };
+
+  const changeErrorLogin = () => {
+    setErrorLogin(null);
   };
 
   const update = ({ displayName }) => {
@@ -173,6 +187,8 @@ export const useFirebaseUser = () => {
     logIn,
     logOut,
     update,
+    changeErrorRegistration,
+    changeErrorLogin,
     errorLogin,
     errorRegistration,
   };

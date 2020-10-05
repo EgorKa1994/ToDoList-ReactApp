@@ -12,6 +12,8 @@ export const App = () => {
     register,
     logIn,
     logOut,
+    changeErrorRegistration,
+    changeErrorLogin,
     update,
     errorLogin,
     errorRegistration,
@@ -33,7 +35,9 @@ export const App = () => {
           register,
           logIn,
           logOut,
+          changeErrorRegistration,
           update,
+          changeErrorLogin,
           errorLogin,
           errorRegistration,
         }}

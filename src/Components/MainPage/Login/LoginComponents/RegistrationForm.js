@@ -1,16 +1,25 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { UserContext, LanguageContext } from '../../../Common/Context/Context';
 import { useHistory } from 'react-router-dom';
 import { ErrorMessage } from '../../../Common/Components/ErrorMessage';
 import { dictionaries } from '../../../../Dictionaries/Dictionaries';
+import { validatePasswordConfirmaion } from '../../../Common/Functions/comFunction';
+import { ErrorConfirmation } from '../../../../Components/Common/Components/ErrorConfirmation';
 
 export const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const { register, errorRegistration } = useContext(UserContext);
+  const { register, errorRegistration, changeErrorRegistration } = useContext(
+    UserContext
+  );
   const history = useHistory();
   const { language } = useContext(LanguageContext);
+  const [confirmationError, setConfirmationError] = useState(null);
+
+  useEffect(() => {
+    setConfirmationError(null);
+  }, [password, passwordConfirmation]);
 
   return (
     <form
@@ -25,7 +34,10 @@ export const RegistrationForm = () => {
           type='text'
           name='email'
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            changeErrorRegistration();
+          }}
         ></input>
       </div>
       <div className='input-group'>
@@ -34,7 +46,10 @@ export const RegistrationForm = () => {
           type='password'
           name='password'
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            changeErrorRegistration();
+          }}
         ></input>
       </div>
       <div className='input-group'>
@@ -45,8 +60,23 @@ export const RegistrationForm = () => {
           type='password'
           name='passwordConfirmation'
           value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          onChange={(e) => {
+            setPasswordConfirmation(e.target.value);
+            changeErrorRegistration();
+          }}
+          onBlur={(e) => {
+            setConfirmationError(
+              validatePasswordConfirmaion(password, e.target.value, language)
+            );
+          }}
         ></input>
+      </div>
+      <div>
+        {confirmationError ? (
+          <ErrorConfirmation error={confirmationError} />
+        ) : (
+          ''
+        )}
       </div>
       <div>
         {errorRegistration ? <ErrorMessage error={errorRegistration} /> : ''}
@@ -54,8 +84,10 @@ export const RegistrationForm = () => {
       <div className='control'>
         <button
           className='save-close'
-          onClick={async () => {
-            await register({ email, password });
+          onClick={() => {
+            if (!confirmationError) {
+              register({ email, password });
+            }
           }}
         >
           {dictionaries[language].Save}
@@ -63,6 +95,7 @@ export const RegistrationForm = () => {
         <button
           className='save-close'
           onClick={() => {
+            changeErrorRegistration();
             history.push('/start');
           }}
         >

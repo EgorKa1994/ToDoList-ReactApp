@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { UserContext, LanguageContext } from '../../../Common/Context/Context';
 import { useHistory, useLocation } from 'react-router-dom';
 import { ErrorMessage } from '../../../Common/Components/ErrorMessage';
@@ -7,7 +7,7 @@ import { dictionaries } from '../../../../Dictionaries/Dictionaries';
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { logIn, errorLogin } = useContext(UserContext);
+  const { logIn, errorLogin, changeErrorLogin } = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
   const { language } = useContext(LanguageContext);
@@ -25,7 +25,10 @@ export const LoginForm = () => {
           type='text'
           name='email'
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            changeErrorLogin();
+          }}
         ></input>
       </div>
       <div className='input-group'>
@@ -34,7 +37,10 @@ export const LoginForm = () => {
           type='password'
           name='password'
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            changeErrorLogin();
+          }}
         ></input>
       </div>
       <div>{errorLogin ? <ErrorMessage error={errorLogin} /> : ''}</div>
@@ -55,6 +61,7 @@ export const LoginForm = () => {
         <button
           className='save-close'
           onClick={() => {
+            changeErrorLogin();
             history.push('/start');
           }}
         >
