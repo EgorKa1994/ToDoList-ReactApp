@@ -1,12 +1,19 @@
 @import '../helpers/variables';
 @import '../helpers//placeholderSelector';
 
-
 .menu {
   width: 20%;
   border-top: $border-param;
   border-right: $border-param;
   position: relative;
+}
+
+@media (max-width: 375px) {
+  .menu {
+    width: 100%;
+    border-right: none;
+    @include flex(flex, center, center);
+  }
 }
 
 .menu > div {
@@ -15,6 +22,25 @@
   &:hover {
     background-color: $primary-color;
     cursor: pointer;
+  }
+  li:hover {
+    background-color: #0bb5db;
+  }
+}
+
+@media (max-width: 375px) {
+  .menu > div {
+    padding: 5px 0 5px 35px;
+    font-weight: 900;
+    width: 33%;
+
+    &:last-child {
+      width: 34%;
+    }
+    &:hover {
+      background-color: $primary-color;
+      cursor: pointer;
+    }
   }
 }
 
@@ -31,6 +57,32 @@
 .menu_item__project:before {
   @extend %menu-items;
   background-image: url('../img/icons/Menu/project.png');
+}
+
+@media (max-width: 375px) {
+  .menu_item__inbox {
+    border-right: $border-param;
+  }
+  .menu_item__inbox:before {
+    top: 1px;
+  }
+
+  .menu_item__focus:before {
+    top: 1px;
+  }
+
+  .menu_item__focus {
+    border-right: $border-param;
+    height: 100%;
+  }
+
+  .menu_item__project:before {
+    top: 1px;
+  }
+
+  .menu_item__project{
+    height: 100%;
+  }
 }
 
 .menu_item {
@@ -63,3 +115,15 @@
     }
   }
 }
+
+@media (max-width: 375px) {
+  .menu_item {
+    border-bottom: none;
+    position: relative;
+
+    ul {
+      display: none;
+    }
+  }
+}
+

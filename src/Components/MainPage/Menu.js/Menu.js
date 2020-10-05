@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { ProjectContext } from '../../../Components/Common/Context/Context';
 import clsx from 'clsx';
 import { UserContext, LanguageContext } from '../../Common/Context/Context';
@@ -27,6 +27,11 @@ const MenuItemContent = ({ children }) => {
 
 const ProjectInMenu = ({ projects }) => {
   const { user } = useContext(UserContext);
+  const history = useHistory();
+
+  const onClick = (id) => {
+    history.push(`/projects/${id}`);
+  };
 
   if (!user) {
     return null;
@@ -35,7 +40,11 @@ const ProjectInMenu = ({ projects }) => {
       <ul>
         {projects.map((project) => {
           if (project.userId == user.uid) {
-            return <li key={project.id}>{project.name}</li>;
+            return (
+              <li onClick={() => onClick(project.id)} key={project.id}>
+                {project.name}
+              </li>
+            );
           }
         })}
       </ul>

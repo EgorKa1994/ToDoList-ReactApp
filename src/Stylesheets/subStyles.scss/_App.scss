@@ -28,6 +28,12 @@ body {
   }
 }
 
+@media (max-width: 375px) {
+  body {
+    font-size: 16px;
+  }
+}
+
 header {
   width: 90%;
   margin: 0 auto;
@@ -46,19 +52,41 @@ header {
   }
 }
 
+@media (max-width: 375px) {
+  header {
+    width: 100%;
+
+    .header-flex {
+      display: block;
+    }
+
+    .weather-flex {
+      & > div {
+        text-align: center;
+      }
+    }
+  }
+}
+
 h1 {
   color: $secondary-color;
   @include font-style(1.5em, italic);
-  text-shadow: 1px 1px 1px $primary-color;
+  text-shadow: 3px 3px 3px $primary-color;
   text-align: center;
   padding: 10px 0;
 }
 
 h2 {
-  color: #04a6c9;
+  color: #074b5a;
   padding: 10px 7px;
   @include font-style(1.3em, italic);
   text-shadow: 3px 3px 3px $secondary-color;
+}
+
+@media (max-width: 375px) {
+  h2 {
+    text-align: center;
+  }
 }
 
 #app {
@@ -72,4 +100,11 @@ h2 {
   -moz-box-shadow: 0px 0px 25px 14px rgba(222, 235, 250, 0.95);
   box-shadow: 0px 0px 25px 14px rgba(222, 235, 250, 0.95);
   @extend %border;
+}
+
+@media (max-width: 375px) {
+  #app {
+    width: 90%;
+    min-height: 0;
+  }
 }

@@ -13,3 +13,14 @@
     height:100%;
   }
 }
+
+@media (max-width: 375px) {
+  .mainPage {
+    flex-wrap: wrap;
+    min-height: 0;
+
+    & > div:last-child, form {
+      width: 100%;
+    }
+  }
+}

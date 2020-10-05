@@ -9,7 +9,7 @@ export const TasksInboxList = ({ tasks, editTask }) => {
   return (
     <div>
       <h2>{dictionaries[language].Inbox}</h2>
-      <Link to='/tasks/new'>
+      <Link className='btn-add' to='/tasks/new'>
         <button className='addition'>{dictionaries[language].AddTask}</button>
       </Link>
       <TaskList tasks={tasks} editTask={editTask} type='inbox' />

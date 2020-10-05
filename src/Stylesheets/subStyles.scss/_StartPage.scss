@@ -57,3 +57,19 @@
     margin: 0 auto;
   }
 }
+
+@media (max-width: 375px) {
+  .authorization {
+    h2 {
+      padding: 5px;
+      font-size: 1.2em;
+    }
+  }
+
+  .start {
+    h2 {
+      padding: 5px;
+      font-size: 1.2em;
+    }
+  }
+}

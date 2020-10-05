@@ -43,7 +43,7 @@ export const dictionaries = {
     ToUseThisApp: 'To use this app you need to authenticate. Please,',
     ToUseThisAppRegister: 'register',
     Or: 'or',
-    Logon: 'logon',
+    Logon: 'login',
     IfYouHaveProfile: 'if you already have profile.',
     PageDoesNotExist: 'Oooooooooops! This page does not exist..',
     TryHomePage: 'Try home page',

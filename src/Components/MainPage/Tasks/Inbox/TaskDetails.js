@@ -63,7 +63,7 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
             ></div>
           </div>
         </div>
-        <div>
+        <div className='task-in-project'>
           <span>{dictionaries[language].Project}</span>
           {choosenTask.projectId
             ? projects.projects.filter(

@@ -35,7 +35,7 @@
   li {
     @include flex(flex, flex-start, center);
     padding: 5px;
-    border-bottom: 2px dashed #05cbf7;
+    border-bottom: 2px dashed $primary-color;
   }
 
   li > * {
@@ -99,5 +99,26 @@
 
   .control {
     width: 100%;
+  }
+}
+
+@media (max-width: 375px) {
+  .details {
+    width: 100%;
+
+    h3 {
+      text-align: center;
+    }
+
+    .task-in-project {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0 5px;
+    }
+
+    .details_info-group {
+      justify-content: center;
+    }
+
   }
 }

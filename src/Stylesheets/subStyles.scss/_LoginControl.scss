@@ -22,6 +22,37 @@
   }
 }
 
+@media (max-width: 375px) {
+  .login {
+    width: 100%;
+    @include flex(flex, space-between, center);
+    flex-wrap: wrap;
+    padding: 0 20px;
+
+    .language {
+      margin: 0;
+      height: 25px;
+    }
+
+    & > div {
+      @include flex(flex, center, center);
+    }
+
+    .login_info {
+
+      font-size: 1.2em;
+
+      &>div {
+        margin: 0;
+      }
+    }
+
+    .login_control {
+      width: 100%;
+    }
+  }
+}
+
 .login_control__btn {
   display: inline-flex;
   align-items: center;

@@ -22,4 +22,15 @@
 .error-input-message {
   margin: 10px 0 5px 0;
   font-size: 0.7em;
+  width: 50%;
+}
+
+@media (max-width: 375px) {
+  .error-message {
+    width: 100%;
+  }
+
+  .error-input-message {
+    width: 100%;
+  }
 }

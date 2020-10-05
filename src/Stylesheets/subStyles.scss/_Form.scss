@@ -33,6 +33,13 @@ form {
 
   .control {
     width: 50%;
+  }
+}
 
+@media (max-width: 375px) {
+  form {
+    .input-group, .control {
+      width: 100%;
+    }
   }
 }
