@@ -31,10 +31,7 @@ export const useFirebaseTasks = () => {
   };
 
   const editTask = async (taskId, obj) => {
-    const editTask = await firestore
-      .collection('/tasks')
-      .doc(taskId)
-      .update(obj);
+    await firestore.collection('/tasks').doc(taskId).update(obj);
 
     const index = tasks.findIndex((task) => task.id == taskId);
 

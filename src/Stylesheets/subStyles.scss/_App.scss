@@ -14,7 +14,11 @@ body {
 
   a {
     text-decoration: none;
+    color: $secondary-color;
     &:visited {
+      color: $secondary-color;
+    }
+    &:link {
       color: $secondary-color;
     }
   }
@@ -41,7 +45,6 @@ header {
     }
   }
 }
-
 
 h1 {
   color: $secondary-color;
