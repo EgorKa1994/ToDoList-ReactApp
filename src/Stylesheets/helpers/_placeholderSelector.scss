@@ -1,14 +1,7 @@
 @import './variables';
 
 %background-body {
-  background: $primary-color;
-  background: linear-gradient(
-    183deg,
-    rgba(0, 209, 255, 1) 0%,
-    rgba(80, 223, 255, 1) 30%,
-    rgba(130, 232, 255, 1) 62%,
-    rgba(180, 241, 255, 1) 100%
-  );
+  background:  rgba(130, 232, 255, 1) 62%,;
 }
 
 %menu-items {

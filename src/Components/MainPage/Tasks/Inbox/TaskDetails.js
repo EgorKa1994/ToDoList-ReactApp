@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ProjectContext } from '../../../../Components/Common/Context/Context';
+import {
+  ProjectContext,
+  LanguageContext,
+} from '../../../../Components/Common/Context/Context';
 import { PreLoader } from '../../../Common/Components/Preloader';
 import { NotFoundPage } from '../../../Common/Components/NotFoundPage';
 import { setHistoryPush } from '../../../Common/Functions/comFunction';
+import { dictionaries } from '../../../../Dictionaries/Dictionaries';
 
 export const TaskDetails = ({ tasks, taskId, removeTask }) => {
   const history = useHistory();
@@ -11,6 +15,7 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
   const choosenTask = tasks.filter((task) => task.id == taskId)[0];
 
   const projects = useContext(ProjectContext);
+  const { language } = useContext(LanguageContext);
 
   if (!choosenTask) {
     return <NotFoundPage />;
@@ -22,15 +27,21 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
 
   return (
     <div>
-      <h2>Task details:</h2>
+      <h2>{dictionaries[language].TaskDetails}</h2>
       <div className='details'>
         <h2>{choosenTask.title}</h2>
         <div className='description'>
-          {choosenTask.description ? choosenTask.description : 'No description'}
+          {choosenTask.description
+            ? choosenTask.description
+            : dictionaries[language].NoDescription}
         </div>
         <div className='details_info-group'>
           <div className='info-group'>
-            <div>{choosenTask.isFocusedOn == true ? 'Focus' : 'No focus'}</div>
+            <div>
+              {choosenTask.isFocusedOn == true
+                ? dictionaries[language].Focus
+                : dictionaries[language].NoFocus}
+            </div>
             <div
               className={
                 choosenTask.isFocusedOn == true
@@ -40,7 +51,11 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
             ></div>
           </div>
           <div className='info-group'>
-            <div>{choosenTask.isDone == true ? 'Done' : 'Not done'}</div>
+            <div>
+              {choosenTask.isDone == true
+                ? dictionaries[language].Done
+                : dictionaries[language].NotDone}
+            </div>
             <div
               className={
                 choosenTask.isDone == true ? 'done-info' : 'not-done-info'
@@ -49,12 +64,12 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
           </div>
         </div>
         <div>
-          <span>Project:</span>
+          <span>{dictionaries[language].Project}</span>
           {choosenTask.projectId
             ? projects.projects.filter(
                 (project) => project.id == choosenTask.projectId
               )[0].name
-            : 'No project'}
+            : dictionaries[language].NoProject}
         </div>
         <div className='control'>
           <button
@@ -63,7 +78,7 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
               history.push(`/tasks/edit/${taskId}`);
             }}
           >
-            Edit
+            {dictionaries[language].Edit}
           </button>
           <button
             className='removing'
@@ -74,7 +89,7 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
               );
             }}
           >
-            Delete
+            {dictionaries[language].Remove}
           </button>
           <button
             className='closing'
@@ -84,7 +99,7 @@ export const TaskDetails = ({ tasks, taskId, removeTask }) => {
               );
             }}
           >
-            Close
+            {dictionaries[language].Close}
           </button>
         </div>
       </div>

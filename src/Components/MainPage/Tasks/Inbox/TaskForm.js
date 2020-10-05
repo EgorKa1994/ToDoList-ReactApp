@@ -4,12 +4,14 @@ import { toObject, firestore } from '../../../../firebase/firestore';
 import {
   ProjectContext,
   UserContext,
+  LanguageContext,
 } from '../../../../Components/Common/Context/Context';
 import { setHistoryPush } from '../../../Common/Functions/comFunction';
 import { PreLoader } from '../../../Common/Components/Preloader';
 import { NotFoundPage } from '../../../Common/Components/NotFoundPage';
 import { validateTitle } from '../../../Common/Functions/comFunction';
 import { ErrorInputMessage } from '../../../Common/Components/ErrorInputMessage';
+import { dictionaries } from '../../../../Dictionaries/Dictionaries';
 
 export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [title, setTitle] = useState('');
@@ -22,6 +24,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
   const [isPageFound, setIsPageFound] = useState(true);
   const history = useHistory();
   const { projects } = useContext(ProjectContext);
+  const { language } = useContext(LanguageContext);
   const { user } = useContext(UserContext);
   const [errorTitleInput, setErrorTitleInput] = useState([]);
   const [formValid, setFormValid] = useState(false);
@@ -80,17 +83,21 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
         e.preventDefault();
       }}
     >
-      <h2>{taskId ? 'Edit task' : 'Add task'}</h2>
+      <h2>
+        {taskId
+          ? dictionaries[language].EditTask
+          : dictionaries[language].AddTask}
+      </h2>
       <div className='input-group'>
-        <label htmlFor='title'>Title</label>
+        <label htmlFor='title'>{dictionaries[language].Title}</label>
         <input
           type='text'
           name='title'
           value={title}
           onChange={async (e) => {
             setTitle(e.target.value);
-            setErrorTitleInput(validateTitle(e.target.value));
-            validateTitle(e.target.value).length == 0
+            setErrorTitleInput(validateTitle(e.target.value, language));
+            validateTitle(e.target.value, language).length == 0
               ? setFormValid(true)
               : setFormValid(false);
           }}
@@ -104,7 +111,9 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
         </div>
       </div>
       <div className='input-group'>
-        <label htmlFor='description'>Description</label>
+        <label htmlFor='description'>
+          {dictionaries[language].Description}
+        </label>
         <textarea
           name='description'
           value={description}
@@ -112,9 +121,9 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
         ></textarea>
       </div>
       <div className='input-group'>
-        <div>Would you like to focus on this task?</div>
+        <div> {dictionaries[language].WouldYouLikeToFocus}</div>
         <div className='input-group_choose'>
-          <label>Yes</label>
+          <label>{dictionaries[language].Yes}</label>
           <input
             type='radio'
             name='isFocused'
@@ -124,7 +133,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
               setIsFocusedOn(e.target.value);
             }}
           />
-          <label>No</label>
+          <label>{dictionaries[language].No}</label>
           <input
             type='radio'
             name='isFocused'
@@ -137,9 +146,9 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
         </div>
       </div>
       <div className='input-group'>
-        <div>Is the task done?</div>
+        <div>{dictionaries[language].IsTaskDone}</div>
         <div className='input-group_choose'>
-          <label>Yes</label>
+          <label>{dictionaries[language].Yes}</label>
           <input
             type='radio'
             name='isDone'
@@ -147,7 +156,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
             checked={isDone == 'true'}
             onChange={(e) => setIsDone(e.target.value)}
           />
-          <label>No</label>
+          <label>{dictionaries[language].No}</label>
           <input
             type='radio'
             name='isDone'
@@ -158,13 +167,13 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
         </div>
       </div>
       <div className='input-group'>
-        <label htmlFor='project'>Choose project</label>
+        <label htmlFor='project'>{dictionaries[language].ChooseProject}</label>
         <select
           name='project'
           value={projectId}
           onChange={(e) => setProjectId(e.target.value)}
         >
-          {<option value={''}>No any project</option>}
+          {<option value={''}>{dictionaries[language].NoProject}</option>}
           {projects.map((project) => {
             if (project.id == projectId) {
               return (
@@ -218,7 +227,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
           }}
           disabled={formValid ? false : true}
         >
-          Save
+          {dictionaries[language].Save}
         </button>
         <button
           className='save-close'
@@ -230,7 +239,7 @@ export const TaskForm = ({ editTask, taskId, addTask }) => {
             }
           }}
         >
-          Close
+          {dictionaries[language].Close}
         </button>
       </div>
     </form>

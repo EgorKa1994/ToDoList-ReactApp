@@ -1,31 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from './Header/Header';
 import { BrowserRouter } from 'react-router-dom';
-import {
-  useFirebaseProjects,
-  useFirebaseTasks,
-  useFirebaseUser,
-} from '../firebase/firebase';
+import { useFirebaseProjects, useFirebaseTasks } from '../firebase/firebase';
 import { MainPage } from './MainPage/MainPage';
 import '../Stylesheets/style.scss';
-import {
-  ProjectProvider,
-  TaskProvider,
-  UserProvider,
-} from './Common/Context/Context';
+import { ProjectProvider, TaskProvider } from './Common/Context/Context';
 import { PreLoader } from '../Components/Common/Components/Preloader';
+import { LanguageProvider } from '../Components/Common/Context/Context';
 
 export const AppWrap = ({ user }) => {
-  // const {
-  //   user,
-  //   isLoadingUser,
-  //   errorLoadingUser,
-  //   register,
-  //   logIn,
-  //   logOut,
-  //   update,
-  // } = useFirebaseUser();
-
   const {
     projects,
     isLoadingProjects,
@@ -44,6 +27,12 @@ export const AppWrap = ({ user }) => {
     removeTask,
   } = useFirebaseTasks({ user });
 
+  const [language, setLanguage] = useState('EN');
+
+  const changeLanguage = (lang) => {
+    setLanguage(lang);
+  };
+
   if (isLoadingProjects || isLoadingTasks) {
     return <PreLoader />;
   }
@@ -60,16 +49,16 @@ export const AppWrap = ({ user }) => {
     <>
       <div id='app'>
         <BrowserRouter>
-          {/* <UserProvider value={{ user, register, logIn, logOut, update }}> */}
-          <Header />
-          <TaskProvider value={{ tasks, addTask, removeTask, editTask }}>
-            <ProjectProvider
-              value={{ projects, addProject, removeProject, editProject }}
-            >
-              <MainPage className={'mainPage'} />
-            </ProjectProvider>
-          </TaskProvider>
-          {/* </UserProvider> */}
+          <LanguageProvider value={{ language, changeLanguage }}>
+            <Header changeLanguage={changeLanguage} />
+            <TaskProvider value={{ tasks, addTask, removeTask, editTask }}>
+              <ProjectProvider
+                value={{ projects, addProject, removeProject, editProject }}
+              >
+                <MainPage className={'mainPage'} />
+              </ProjectProvider>
+            </TaskProvider>
+          </LanguageProvider>
         </BrowserRouter>
       </div>
     </>

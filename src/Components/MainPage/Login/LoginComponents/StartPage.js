@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { dictionaries } from '../../../../Dictionaries/Dictionaries';
+import { LanguageContext } from '../../../Common/Context/Context';
 
 export const StartPage = () => {
+  const { language } = useContext(LanguageContext);
   return (
     <div className='authorization'>
       <h2>
-        To use this app you need to authenticate. Please,
+        {dictionaries[language].ToUseThisApp}
         <Link to='/registration'>
-          <span>register </span>
+          <span> {dictionaries[language].ToUseThisAppRegister}</span>
         </Link>
-        or
+        {dictionaries[language].Or}
         <Link to='/login'>
-          <span>logon</span>
+          <span>{dictionaries[language].Logon}</span>
         </Link>
-        if you already have profile.
+        {dictionaries[language].IfYouHaveProfile}
       </h2>
       <div></div>
     </div>

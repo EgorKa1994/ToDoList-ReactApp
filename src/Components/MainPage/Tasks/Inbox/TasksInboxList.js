@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { TaskList } from '../../../Common/Components/TaskList';
+import { dictionaries } from '../../../../Dictionaries/Dictionaries';
+import { LanguageContext } from '../../../Common/Context/Context';
 
 export const TasksInboxList = ({ tasks, editTask }) => {
+  const { language } = useContext(LanguageContext);
   return (
     <div>
-      <h2>Inbox</h2>
+      <h2>{dictionaries[language].Inbox}</h2>
       <Link to='/tasks/new'>
-        <button className='addition'>Add task</button>
+        <button className='addition'>{dictionaries[language].AddTask}</button>
       </Link>
       <TaskList tasks={tasks} editTask={editTask} type='inbox' />
     </div>

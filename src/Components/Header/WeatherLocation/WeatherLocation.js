@@ -52,7 +52,15 @@ const usePositionAndWeather = () => {
         const weatherData = await weatherResponse.json();
         setWeather(weatherData);
       } catch (error) {
-        setError(error);
+        try {
+          const weatherMinskResponse = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=53.902284&lon=27.561831&units=metric&appid=${API_KEY}`
+          );
+          const weatherMinskData = await weatherMinskResponse.json();
+          setWeather(weatherMinskData);
+        } catch (error) {
+          setError(error);
+        }
       } finally {
         setIsLoading(false);
       }

@@ -20,6 +20,8 @@ button {
 
 .save-close {
   background-color: $fourth-color;
+  padding: 5px 10px;
+  font-size: 0.8em;
 
   &:hover {
     box-shadow: 0 0 10px 0 $primary-color inset, 0 0 10px 4px $primary-color;
@@ -31,6 +33,8 @@ button {
   background-color: $edit-color;
   margin: 0;
   border: 2px solid $edit-color;
+  padding: 5px 10px;
+  font-size: 0.8em;
 
   &:hover {
     color: $edit-color;
@@ -43,6 +47,8 @@ button {
   background-color: $delete-color;
   margin: 0;
   border: 2px solid $delete-color;
+  padding: 5px 10px;
+  font-size: 0.8em;
 
   &:hover {
     color: $delete-color;

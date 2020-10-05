@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../../../Common/Context/Context';
+import { UserContext, LanguageContext } from '../../../Common/Context/Context';
 import { useHistory } from 'react-router-dom';
+import { dictionaries } from '../../../../Dictionaries/Dictionaries';
 
 export const AccountPage = () => {
   const { update, user } = useContext(UserContext);
@@ -9,6 +10,7 @@ export const AccountPage = () => {
   );
 
   const history = useHistory();
+  const { language } = useContext(LanguageContext);
 
   return (
     <>
@@ -17,9 +19,9 @@ export const AccountPage = () => {
           e.preventDefault();
         }}
       >
-        <h2>Account information</h2>
+        <h2>{dictionaries[language].AccountInfo}</h2>
         <div className='input-group'>
-          <label htmlFor='displayName'>Your name</label>
+          <label htmlFor='displayName'>{dictionaries[language].YourName}</label>
           <input
             type='text'
             name='displayName'
@@ -28,7 +30,7 @@ export const AccountPage = () => {
           ></input>
         </div>
         <div className='input-group'>
-          <label htmlFor='email'>Your email</label>
+          <label htmlFor='email'>{dictionaries[language].YourEmail}</label>
           <input name='email' value={user.email} disabled></input>
         </div>
         <div className='control'>
@@ -39,7 +41,7 @@ export const AccountPage = () => {
               history.push('./tasks/inbox');
             }}
           >
-            Save
+            {dictionaries[language].Save}
           </button>
           <button
             className='save-close'
@@ -47,7 +49,7 @@ export const AccountPage = () => {
               history.push('./tasks/inbox');
             }}
           >
-            Close
+            {dictionaries[language].Close}
           </button>
         </div>
       </form>

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFirebaseTasks } from '../../../../firebase/firebase';
 import { useHistory } from 'react-router-dom';
 import { TaskData } from '../../../Common/Components/TaskData';
 import { NotFoundPage } from '../../../Common/Components/NotFoundPage';
+import { dictionaries } from '../../../../Dictionaries/Dictionaries';
+import { LanguageContext } from '../../../Common/Context/Context';
 
 export const ProjectDetails = ({ removeProject, projectId, projects }) => {
   const { tasks, isLoading, error, editTask, removeTask } = useFirebaseTasks();
+  const { language } = useContext(LanguageContext);
 
   const choosenProject = projects.filter(
     (project) => project.id == projectId
@@ -33,7 +36,7 @@ export const ProjectDetails = ({ removeProject, projectId, projects }) => {
 
   return (
     <div>
-      <h2>Project details:</h2>
+      <h2>{dictionaries[language].ProjectDetails}</h2>
       <div className='details'>
         <h2>{choosenProject ? `${choosenProject.name}` : ''}</h2>
         <div className='description'>
@@ -46,7 +49,9 @@ export const ProjectDetails = ({ removeProject, projectId, projects }) => {
             : ''}
         </div>
         <ul>
-          <h3 style={{ paddingTop: 10 }}>Project tasks:</h3>
+          <h3 style={{ paddingTop: 10 }}>
+            {dictionaries[language].ProjectTasks}
+          </h3>
           {tasks.map((task) => {
             if (task.projectId == choosenProject.id) {
               return <TaskData key={task.id} task={task} editTask={editTask} />;
@@ -60,7 +65,7 @@ export const ProjectDetails = ({ removeProject, projectId, projects }) => {
               history.push(`/projects/edit/${choosenProject.id}`);
             }}
           >
-            Edit
+            {dictionaries[language].Edit}
           </button>
           <button
             className='removing'
@@ -74,7 +79,7 @@ export const ProjectDetails = ({ removeProject, projectId, projects }) => {
               history.push(`/projects`);
             }}
           >
-            Delete
+            {dictionaries[language].Remove}
           </button>
           <button
             className='closing'
@@ -82,7 +87,7 @@ export const ProjectDetails = ({ removeProject, projectId, projects }) => {
               history.push('/projects');
             }}
           >
-            Close
+            {dictionaries[language].Close}
           </button>
         </div>
       </div>

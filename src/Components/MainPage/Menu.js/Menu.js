@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ProjectContext } from '../../../Components/Common/Context/Context';
 import clsx from 'clsx';
-import { UserContext } from '../../Common/Context/Context';
+import { UserContext, LanguageContext } from '../../Common/Context/Context';
+import { dictionaries } from '../../../Dictionaries/Dictionaries';
 
 const itemKind = {
   inbox: 'menu_item__inbox',
@@ -44,22 +45,23 @@ const ProjectInMenu = ({ projects }) => {
 
 export const Menu = () => {
   const { projects } = useContext(ProjectContext);
+  const { language } = useContext(LanguageContext);
 
   return (
     <div className='menu'>
       <MenuItem kind='menu_item__inbox'>
         <NavLink to='/tasks/inbox'>
-          <MenuItemContent>Inbox</MenuItemContent>
+          <MenuItemContent>{dictionaries[language].Inbox}</MenuItemContent>
         </NavLink>
       </MenuItem>
       <MenuItem kind='menu_item__focus'>
         <NavLink to='/tasks/focus'>
-          <MenuItemContent>Focus</MenuItemContent>
+          <MenuItemContent>{dictionaries[language].Focus}</MenuItemContent>
         </NavLink>
       </MenuItem>
       <MenuItem kind='menu_item__project'>
         <NavLink to='/projects/inbox'>
-          <MenuItemContent>Projects</MenuItemContent>
+          <MenuItemContent>{dictionaries[language].Projects}</MenuItemContent>
         </NavLink>
         <ProjectInMenu projects={projects} />
       </MenuItem>

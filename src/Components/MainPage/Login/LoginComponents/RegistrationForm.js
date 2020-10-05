@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../../../Common/Context/Context';
+import { UserContext, LanguageContext } from '../../../Common/Context/Context';
 import { useHistory } from 'react-router-dom';
 import { ErrorMessage } from '../../../Common/Components/ErrorMessage';
+import { dictionaries } from '../../../../Dictionaries/Dictionaries';
 
 export const RegistrationForm = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ export const RegistrationForm = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const { register, errorRegistration } = useContext(UserContext);
   const history = useHistory();
+  const { language } = useContext(LanguageContext);
 
   return (
     <form
@@ -16,9 +18,9 @@ export const RegistrationForm = () => {
         e.preventDefault();
       }}
     >
-      <h2>Registration</h2>
+      <h2>{dictionaries[language].Registration}</h2>
       <div className='input-group'>
-        <label htmlFor='email'>Your email</label>
+        <label htmlFor='email'>{dictionaries[language].YourEmail}</label>
         <input
           type='text'
           name='email'
@@ -27,7 +29,7 @@ export const RegistrationForm = () => {
         ></input>
       </div>
       <div className='input-group'>
-        <label htmlFor='password'>Password</label>
+        <label htmlFor='password'>{dictionaries[language].Password}</label>
         <input
           type='password'
           name='password'
@@ -36,7 +38,9 @@ export const RegistrationForm = () => {
         ></input>
       </div>
       <div className='input-group'>
-        <label htmlFor='passwordConfirmation'>Password confirmation</label>
+        <label htmlFor='passwordConfirmation'>
+          {dictionaries[language].PasswordConfirmation}
+        </label>
         <input
           type='password'
           name='passwordConfirmation'
@@ -54,7 +58,7 @@ export const RegistrationForm = () => {
             await register({ email, password });
           }}
         >
-          Save
+          {dictionaries[language].Save}
         </button>
         <button
           className='save-close'
@@ -62,7 +66,7 @@ export const RegistrationForm = () => {
             history.push('/start');
           }}
         >
-          Close
+          {dictionaries[language].Close}
         </button>
       </div>
     </form>

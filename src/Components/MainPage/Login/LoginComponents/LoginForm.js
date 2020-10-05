@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../../../Common/Context/Context';
+import { UserContext, LanguageContext } from '../../../Common/Context/Context';
 import { useHistory, useLocation } from 'react-router-dom';
 import { ErrorMessage } from '../../../Common/Components/ErrorMessage';
+import { dictionaries } from '../../../../Dictionaries/Dictionaries';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ export const LoginForm = () => {
   const { logIn, errorLogin } = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
+  const { language } = useContext(LanguageContext);
 
   return (
     <form
@@ -16,9 +18,9 @@ export const LoginForm = () => {
         e.preventDefault();
       }}
     >
-      <h2>Welcome</h2>
+      <h2>{dictionaries[language].Welcome}</h2>
       <div className='input-group'>
-        <label htmlFor='email'>Your email</label>
+        <label htmlFor='email'>{dictionaries[language].YourEmail}</label>
         <input
           type='text'
           name='email'
@@ -27,7 +29,7 @@ export const LoginForm = () => {
         ></input>
       </div>
       <div className='input-group'>
-        <label htmlFor='password'>Password</label>
+        <label htmlFor='password'>{dictionaries[language].Password}</label>
         <input
           type='password'
           name='password'
@@ -48,7 +50,7 @@ export const LoginForm = () => {
             }
           }}
         >
-          Ok
+          {dictionaries[language].LogIn}
         </button>
         <button
           className='save-close'
@@ -56,7 +58,7 @@ export const LoginForm = () => {
             history.push('/start');
           }}
         >
-          Close
+          {dictionaries[language].Close}
         </button>
       </div>
     </form>

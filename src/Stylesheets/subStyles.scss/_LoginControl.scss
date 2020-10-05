@@ -5,6 +5,10 @@
 .login {
   width: 50%;
 
+  .language {
+    margin: 0 15px 15px 0;
+  }
+
   & > div {
     @include flex(flex, flex-end, center);
   }

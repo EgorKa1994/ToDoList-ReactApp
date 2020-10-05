@@ -3,9 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { toObject, firestore } from '../../../../firebase/firestore';
 import { PreLoader } from '../../../Common/Components/Preloader';
 import { NotFoundPage } from '../../../Common/Components/NotFoundPage';
-import { UserContext } from '../../../Common/Context/Context';
+import { UserContext, LanguageContext } from '../../../Common/Context/Context';
 import { validateTitle } from '../../../Common/Functions/comFunction';
 import { ErrorInputMessage } from '../../../Common/Components/ErrorInputMessage';
+import { dictionaries } from '../../../../Dictionaries/Dictionaries';
 
 export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const [name, setName] = useState('');
@@ -17,6 +18,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
   const { user } = useContext(UserContext);
   const [errorTitleInput, setErrorTitleInput] = useState([]);
   const [formValid, setFormValid] = useState(false);
+  const { language } = useContext(LanguageContext);
 
   useEffect(() => {
     if (projectId) {
@@ -61,17 +63,21 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
         e.preventDefault();
       }}
     >
-      <h2>{projectId ? 'Edit project' : 'Add project'}</h2>
+      <h2>
+        {projectId
+          ? dictionaries[language].EditProject
+          : dictionaries[language].AddProject}
+      </h2>
       <div className='input-group'>
-        <label htmlFor='name'>Title</label>
+        <label htmlFor='name'>{dictionaries[language].Title}</label>
         <input
           type='text'
           name='name'
           value={name}
           onChange={(e) => {
             setName(e.target.value);
-            setErrorTitleInput(validateTitle(e.target.value));
-            validateTitle(e.target.value).length == 0
+            setErrorTitleInput(validateTitle(e.target.value, language));
+            validateTitle(e.target.value, language).length == 0
               ? setFormValid(true)
               : setFormValid(false);
           }}
@@ -85,7 +91,9 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
         </div>
       </div>
       <div className='input-group'>
-        <label htmlFor='description'>Description</label>
+        <label htmlFor='description'>
+          {dictionaries[language].Description}
+        </label>
         <textarea
           name='description'
           value={description}
@@ -112,7 +120,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
           }}
           disabled={formValid ? false : true}
         >
-          Save
+          {dictionaries[language].Save}
         </button>
         <button
           className='save-close'
@@ -120,7 +128,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
             history.push('/projects/inbox');
           }}
         >
-          Close
+          {dictionaries[language].Close}
         </button>
       </div>
     </form>
