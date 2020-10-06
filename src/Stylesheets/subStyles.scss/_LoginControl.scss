@@ -22,8 +22,9 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 500px) {
   .login {
+    margin-bottom: 20px;
     width: 100%;
     @include flex(flex, space-between, center);
     flex-wrap: wrap;
@@ -81,7 +82,7 @@
   width: 25px;
   height: 25px;
   background-size: cover;
-  speak: none;
+  // speak: none;
   font-variant: normal;
   text-transform: none;
   line-height: 1;

@@ -7,7 +7,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 
-  @extend %background-body;
+  background:  rgba(130, 232, 255, 1) 62%;
   height: 100vh;
   font-size: 20px;
   color: $primary-color;
@@ -28,9 +28,11 @@ body {
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 500px) {
   body {
     font-size: 16px;
+    height: auto;
+    background: $fifth-color;
   }
 }
 
@@ -52,7 +54,7 @@ header {
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 500px) {
   header {
     width: 100%;
 
@@ -61,6 +63,7 @@ header {
     }
 
     .weather-flex {
+      margin-bottom: 30px;
       & > div {
         text-align: center;
       }
@@ -83,7 +86,11 @@ h2 {
   text-shadow: 3px 3px 3px $secondary-color;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 500px) {
+  h1 {
+    padding: 30px 0;
+  }
+
   h2 {
     text-align: center;
   }
@@ -99,12 +106,16 @@ h2 {
   -webkit-box-shadow: 0px 0px 25px 14px rgba(222, 235, 250, 0.95);
   -moz-box-shadow: 0px 0px 25px 14px rgba(222, 235, 250, 0.95);
   box-shadow: 0px 0px 25px 14px rgba(222, 235, 250, 0.95);
-  @extend %border;
+  border: 2px solid $primary-color;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 500px) {
   #app {
-    width: 90%;
+    width: 100%;
+    margin: 0;
     min-height: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
   }
 }

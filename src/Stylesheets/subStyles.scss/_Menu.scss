@@ -8,7 +8,7 @@
   position: relative;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 500px) {
   .menu {
     width: 100%;
     border-right: none;
@@ -30,9 +30,10 @@
 
 @media (max-width: 375px) {
   .menu > div {
-    padding: 5px 0 5px 35px;
+    padding: 10px 0 5px 35px;
     font-weight: 900;
     width: 33%;
+    font-size: 0.8em;
 
     &:last-child {
       width: 34%;
@@ -41,6 +42,23 @@
       background-color: $primary-color;
       cursor: pointer;
     }
+  }
+}
+
+@media (min-width: 375px) and (max-width: 500px) {
+  .menu > div {
+    padding: 10px 0 0 35px;
+    line-height: 30px;
+    height: 45px;
+    font-weight: 900;
+    width: 33%;
+    font-size: 0.8em;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 402px) {
+  .menu > div:first-child {
+    line-height: 15px;
   }
 }
 
@@ -80,8 +98,18 @@
     top: 1px;
   }
 
-  .menu_item__project{
+  .menu_item__project {
     height: 100%;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 500px) {
+  .menu_item__inbox {
+    border-right: $border-param;
+  }
+
+  .menu_item__focus {
+    border-right: $border-param;
   }
 }
 
@@ -116,7 +144,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 500px) {
   .menu_item {
     border-bottom: none;
     position: relative;
@@ -126,4 +154,3 @@
     }
   }
 }
-
