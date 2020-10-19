@@ -34,3 +34,12 @@
     width: 100%;
   }
 }
+
+.errorPage {
+  width: 150px;
+  height: 150px;
+  background-image: url('../img/icons/errorIcon.png');
+  background-position: cover;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+}

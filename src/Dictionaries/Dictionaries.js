@@ -47,6 +47,7 @@ export const dictionaries = {
     IfYouHaveProfile: 'if you already have profile.',
     PageDoesNotExist: 'Oooooooooops! This page does not exist..',
     TryHomePage: 'Try home page',
+    ErrorPage: 'Sorry. There is error. Please contact support.',
   },
   RU: {
     Registration: 'Регистрация',
@@ -96,5 +97,6 @@ export const dictionaries = {
     IfYouHaveProfile: ', если он у Вас уже имеется.',
     PageDoesNotExist: 'Уууууупс! Такой страницы не существует..',
     TryHomePage: 'Вернитесь на главную страницу',
+    ErrorPage: 'Извините, произошла ошибка. Обратитесь в службу поддержки.',
   },
 };

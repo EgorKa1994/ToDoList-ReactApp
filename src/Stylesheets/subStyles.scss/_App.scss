@@ -1,15 +1,17 @@
 @import '../helpers/variables';
 @import '../helpers/placeholderSelector';
 @import '../helpers/mixins';
+@import '../font/stylesheet.scss';
 
 body {
-  font-family: 'holtwood_one_scregular', serif;
+  font-family: 'roboto_condensedregular', serif;
+  // font-family: 'Times New Roman', Times, serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 
   background:  rgba(130, 232, 255, 1) 62%;
   height: 100vh;
-  font-size: 20px;
+  font-size: 18px;
   color: $primary-color;
 
   a {

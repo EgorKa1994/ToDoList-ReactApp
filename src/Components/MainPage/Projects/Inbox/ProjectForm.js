@@ -108,6 +108,7 @@ export const ProjectForm = ({ editProject, projectId, addProject }) => {
               await editProject(projectId, {
                 name,
                 description,
+                userId: user.uid,
               });
             } else {
               await addProject({

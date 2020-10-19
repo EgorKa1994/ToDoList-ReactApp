@@ -25,8 +25,9 @@ const MenuItemContent = ({ children }) => {
   return <div>{children}</div>;
 };
 
-const ProjectInMenu = ({ projects }) => {
+const ProjectInMenu = () => {
   const { user } = useContext(UserContext);
+  const { projects } = useContext(ProjectContext);
   const history = useHistory();
 
   const onClick = (id) => {
